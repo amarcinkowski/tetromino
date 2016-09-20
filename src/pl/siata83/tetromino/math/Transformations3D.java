@@ -11,10 +11,11 @@ package pl.siata83.tetromino.math;
 
 import java.util.Vector;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import pl.siata83.tetromino.algorithm.CubeVolume;
 import flanagan.math.Matrix;
+import pl.siata83.tetromino.algorithm.CubeVolume;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -25,7 +26,7 @@ import flanagan.math.Matrix;
 public class Transformations3D {
 
 	/** The logger. */
-	public static Logger logger = Logger.getLogger(Transformations3D.class);
+	public static Logger logger = LoggerFactory.getLogger(Transformations3D.class);
 
 	/** The Constant BLOCK. */
 	private final static double[][] BLOCK = { { 0.0, 0.0, 0.0, 1.0 },

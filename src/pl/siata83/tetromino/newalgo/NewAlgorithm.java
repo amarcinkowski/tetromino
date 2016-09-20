@@ -2,8 +2,6 @@ package pl.siata83.tetromino.newalgo;
 
 import java.util.TreeSet;
 
-import org.apache.log4j.BasicConfigurator;
-
 import pl.siata83.tetromino.algorithm.CubeVolume;
 import pl.siata83.tetromino.math.Transformations3D;
 
@@ -130,7 +128,6 @@ public class NewAlgorithm {
 	 *            the arguments
 	 */
 	public static void main(String[] args) {
-		BasicConfigurator.configure();
 		generateResult(new BnBData());
 	}
 

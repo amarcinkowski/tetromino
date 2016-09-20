@@ -11,7 +11,8 @@ package pl.siata83.tetromino.algorithm;
 
 import java.util.Vector;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import pl.siata83.tetromino.math.Conversion;
 
@@ -21,7 +22,7 @@ import pl.siata83.tetromino.math.Conversion;
  */
 public class CubeVolume {
 
-	private static Logger logger = Logger.getLogger(CubeVolume.class);
+	private static Logger logger = LoggerFactory.getLogger(CubeVolume.class);
 
 	public final static int SIZE_X = 6;
 	public final static int SIZE_Y = 6;

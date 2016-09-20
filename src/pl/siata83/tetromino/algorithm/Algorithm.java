@@ -2,7 +2,8 @@ package pl.siata83.tetromino.algorithm;
 
 import java.util.Vector;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import pl.siata83.tetromino.Main;
 import pl.siata83.tetromino.visualisation.SVG;
@@ -29,7 +30,7 @@ public class Algorithm {
 	/** The Constant MAX_BLOCK. */
 	private final static int MAX_BLOCK = CubeVolume.VOLUME / BLOCK_VOLUME;
 
-	private static Logger logger = Logger.getLogger(Algorithm.class);
+	private static Logger logger = LoggerFactory.getLogger(Algorithm.class);
 	/**
 	 * np. [1,14,18] 0 > rCT > 32
 	 */

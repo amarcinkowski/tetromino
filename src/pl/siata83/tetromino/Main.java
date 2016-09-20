@@ -9,8 +9,8 @@
 
 package pl.siata83.tetromino;
 
-import org.apache.log4j.BasicConfigurator;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import pl.siata83.tetromino.algorithm.Algorithm;
 
@@ -22,7 +22,7 @@ import pl.siata83.tetromino.algorithm.Algorithm;
 public class Main {
 	
 	/** The logger. */
-	private static Logger logger = Logger.getLogger(Main.class);
+	private static Logger logger = LoggerFactory.getLogger(Main.class);
 
 	/** The start time. */
 	public static long startTime = System.currentTimeMillis();
@@ -39,7 +39,6 @@ public class Main {
 	 * @param args the arguments
 	 */
 	public static void main(String[] args) {
-		BasicConfigurator.configure();
 		while (true) {
 			if (nodeCount % 10000 == 0) {
 				logger.info("Count" + nodeCount + "\nTIME(sec)"
