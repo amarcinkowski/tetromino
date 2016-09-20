@@ -7,18 +7,14 @@
 apply plugin: 'java'
 apply plugin: 'eclipse'
 
-// In this section you declare where to find the dependencies of your project
 repositories {
     mavenCentral()
 }
 
-// In this section you declare the dependencies for your production and test code
 dependencies {
-    runtime fileTree(dir: 'lib', include: '*.jar')
     compile group: 'org.seleniumhq.selenium', name: 'selenium-java', version: '2.+'
     compile group: 'junit', name: 'junit', version: '4.+'
     compile group: 'org.slf4j', name: 'slf4j-api', version: '1.7.+'
     compile group: 'ch.qos.logback', name: 'logback-classic', version: '1.+'
 	compile group: 'org.apache.commons', name: 'commons-math3', version: '3.6.1'
-    
 }
