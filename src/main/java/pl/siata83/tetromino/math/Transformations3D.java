@@ -11,13 +11,13 @@ package pl.siata83.tetromino.math;
 
 import java.util.Vector;
 
+import org.apache.commons.math3.linear.MatrixUtils;
+import org.apache.commons.math3.linear.RealMatrix;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import flanagan.math.Matrix;
 import pl.siata83.tetromino.algorithm.CubeVolume;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class Transformations3D.
  * 
@@ -54,15 +54,16 @@ public class Transformations3D {
 		double[][] arraysC = new double[4][4];
 
 		// Create three instances of Matrix
-		Matrix matrixA = new Matrix(transformed);
-		Matrix matrixB = new Matrix(arraysB);
-		Matrix matrixC = new Matrix(4, 4);
+		
+		RealMatrix matrixA = MatrixUtils.createRealMatrix(transformed);
+		RealMatrix matrixB = MatrixUtils.createRealMatrix(arraysB);
+		RealMatrix matrixC = MatrixUtils.createRealMatrix(4, 4);
 
 		// Multiplication C =A.B
-		matrixC = matrixA.times(matrixB);
+		matrixC = matrixA.multiply(matrixB);
 
 		// Get result of multriplication
-		arraysC = matrixC.getArrayCopy();
+		arraysC = matrixC.getData();
 		return arraysC;
 	}
 
