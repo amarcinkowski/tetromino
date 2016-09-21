@@ -1,11 +1,11 @@
-package pl.siata83.tetromino.visualisation;
+package io.github.amarcinkowski.tetromino.visualisation;
 
 import java.io.File;
 import java.io.FileWriter;
 import java.text.DateFormat;
 import java.util.Date;
 
-import pl.siata83.tetromino.math.Conversion;
+import io.github.amarcinkowski.tetromino.math.Conversion;
 
 public class SVG {
 

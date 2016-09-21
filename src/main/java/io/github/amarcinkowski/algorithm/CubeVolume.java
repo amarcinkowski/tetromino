@@ -1,11 +1,11 @@
-package pl.siata83.tetromino.algorithm;
+package io.github.amarcinkowski.algorithm;
 
 import java.util.Vector;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import pl.siata83.tetromino.math.Conversion;
+import io.github.amarcinkowski.tetromino.math.Conversion;
 
 public class CubeVolume {
 

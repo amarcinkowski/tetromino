@@ -7,11 +7,11 @@
  * and open the template in the editor.
  */
 
-package pl.siata83.tetromino.algorithm;
+package io.github.amarcinkowski.algorithm;
 
 import java.util.Vector;
 
-import pl.siata83.tetromino.math.Transformations3D;
+import io.github.amarcinkowski.tetromino.math.Transformations3D;
 
 /**
  * 

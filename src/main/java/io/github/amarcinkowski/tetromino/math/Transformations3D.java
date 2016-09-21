@@ -7,7 +7,7 @@
  * and open the template in the editor.
  */
 
-package pl.siata83.tetromino.math;
+package io.github.amarcinkowski.tetromino.math;
 
 import java.util.Vector;
 
@@ -16,7 +16,7 @@ import org.apache.commons.math3.linear.RealMatrix;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import pl.siata83.tetromino.algorithm.CubeVolume;
+import io.github.amarcinkowski.algorithm.CubeVolume;
 
 /**
  * The Class Transformations3D.

@@ -1,9 +1,9 @@
-package pl.siata83.tetromino.newalgo;
+package io.github.amarcinkowski.tetromino.newalgo;
 
 import java.util.TreeSet;
 
-import pl.siata83.tetromino.algorithm.CubeVolume;
-import pl.siata83.tetromino.math.Transformations3D;
+import io.github.amarcinkowski.algorithm.CubeVolume;
+import io.github.amarcinkowski.tetromino.math.Transformations3D;
 
 public class NewAlgorithm {
 

@@ -1,8 +1,8 @@
-package pl.siata83.tetromino.newalgo;
+package io.github.amarcinkowski.tetromino.newalgo;
 
 import java.util.Arrays;
 
-import pl.siata83.tetromino.math.Conversion;
+import io.github.amarcinkowski.tetromino.math.Conversion;
 
 /**
  * The Class NewBlock.

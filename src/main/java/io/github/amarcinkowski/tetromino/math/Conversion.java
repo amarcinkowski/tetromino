@@ -1,11 +1,11 @@
-package pl.siata83.tetromino.math;
+package io.github.amarcinkowski.tetromino.math;
 
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Vector;
 
-import pl.siata83.tetromino.algorithm.CubeVolume;
+import io.github.amarcinkowski.algorithm.CubeVolume;
 
 /**
  * The Class Conversion.

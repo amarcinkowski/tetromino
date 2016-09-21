@@ -1,4 +1,4 @@
-package pl.siata83.tetromino.newalgo;
+package io.github.amarcinkowski.tetromino.newalgo;
 
 
 public class BnBData {

@@ -3,8 +3,8 @@ package pl.siata.tetromino.algorithm;
 import org.junit.Assert;
 import org.junit.Test;
 
-import pl.siata83.tetromino.newalgo.NewBlock;
-import pl.siata83.tetromino.newalgo.Volume;
+import io.github.amarcinkowski.tetromino.newalgo.NewBlock;
+import io.github.amarcinkowski.tetromino.newalgo.Volume;
 
 public class NewVolumeTest {
 

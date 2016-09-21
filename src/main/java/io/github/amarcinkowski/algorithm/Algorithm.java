@@ -1,13 +1,13 @@
-package pl.siata83.tetromino.algorithm;
+package io.github.amarcinkowski.algorithm;
 
 import java.util.Vector;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import pl.siata83.tetromino.Main;
-import pl.siata83.tetromino.visualisation.SVG;
-import pl.siata83.tetromino.visualisation.Text;
+import io.github.amarcinkowski.tetromino.Main;
+import io.github.amarcinkowski.tetromino.visualisation.SVG;
+import io.github.amarcinkowski.tetromino.visualisation.Text;
 
 public class Algorithm {
 

@@ -1,7 +1,7 @@
-package pl.siata83.tetromino.visualisation;
+package io.github.amarcinkowski.tetromino.visualisation;
 
-import pl.siata83.tetromino.algorithm.Algorithm;
-import pl.siata83.tetromino.math.Conversion;
+import io.github.amarcinkowski.algorithm.Algorithm;
+import io.github.amarcinkowski.tetromino.math.Conversion;
 
 public class Text {
 
