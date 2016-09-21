@@ -1,0 +1,24 @@
+<?xml version='1.0' encoding='ascii'?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" height="270" version="1.1" width="480">
+    <g id="RenderLayer_LineSet" inkscape:groupmode="lineset" inkscape:label="RenderLayer_LineSet">
+        <g id="strokes" inkscape:groupmode="layer" inkscape:label="strokes">
+            <path d=" M 250.052, 117.145 259.830, 119.240 267.962, 120.981 267.841, 110.982 267.774, 105.414 267.724, 101.322 267.604, 91.323 267.536, 85.755 " fill="none" stroke="rgb(2, 2, 2)" stroke-dasharray="8,8,4,4" stroke-linecap="butt" stroke-linejoin="mitter" stroke-opacity="1.0" stroke-width="2.0" />
+            <path d=" M 267.962, 120.981 260.512, 127.652 253.062, 134.323 250.290, 136.805 " fill="none" stroke="rgb(2, 2, 2)" stroke-dasharray="8,8,4,4" stroke-linecap="butt" stroke-linejoin="mitter" stroke-opacity="1.0" stroke-width="2.0" />
+            <path d=" M 355.933, 120.216 346.155, 118.122 336.377, 116.027 326.598, 113.933 320.783, 112.687 311.005, 110.593 301.227, 108.498 291.449, 106.404 285.634, 105.158 275.856, 103.064 267.724, 101.322 257.946, 99.228 253.543, 98.284 250.485, 97.629 " fill="none" stroke="rgb(2, 2, 2)" stroke-dasharray="8,8,4,4" stroke-linecap="butt" stroke-linejoin="mitter" stroke-opacity="1.0" stroke-width="2.0" />
+            <path d=" M 232.812, 113.453 240.262, 106.782 247.712, 100.111 250.485, 97.629 250.364, 87.630 250.243, 77.631 250.122, 67.632 250.059, 62.403 " fill="none" stroke="rgb(2, 2, 2)" stroke-dasharray="8,8,4,4" stroke-linecap="butt" stroke-linejoin="mitter" stroke-opacity="1.0" stroke-width="2.0" />
+        </g>
+    </g>
+    <g id="RenderLayer_LineSet 2" inkscape:groupmode="lineset" inkscape:label="RenderLayer_LineSet 2">
+        <g id="fills" inkscape:groupmode="layer" inkscape:label="fills" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape">
+            <path d=" M 250.290, 136.805 285.439, 144.334 303.111, 128.510 338.261, 136.039 355.933, 120.216 355.507, 84.990 320.358, 77.461 285.208, 69.932 250.059, 62.403 232.387, 78.226 232.812, 113.453 250.052, 117.145 250.290, 136.805  z" fill="rgb(10, 56, 255)" fill-opacity="0.30000001192092896" fill_rule="evenodd" stroke="none" />
+        </g>
+        <g id="strokes" inkscape:groupmode="layer" inkscape:label="strokes">
+            <path d=" M 285.439, 144.334 285.318, 134.334 285.198, 124.335 285.077, 114.336 285.014, 109.107 " fill="none" stroke="rgb(0, 0, 0)" stroke-linecap="butt" stroke-linejoin="mitter" stroke-opacity="1.0" stroke-width="3.0" />
+            <path d=" M 302.686, 93.284 295.236, 99.954 287.786, 106.625 285.014, 109.107 275.235, 107.012 267.774, 105.414 257.996, 103.320 249.864, 101.578 " fill="none" stroke="rgb(0, 0, 0)" stroke-linecap="butt" stroke-linejoin="mitter" stroke-opacity="1.0" stroke-width="3.0" />
+            <path d=" M 267.536, 85.755 260.086, 92.425 253.543, 98.284 249.864, 101.578 249.985, 111.577 250.052, 117.145 250.173, 127.145 250.290, 136.805 260.068, 138.899 269.846, 140.994 279.624, 143.088 285.439, 144.334 292.889, 137.663 300.339, 130.992 303.111, 128.510 312.890, 130.605 322.668, 132.699 332.446, 134.794 338.261, 136.039 345.711, 129.369 353.161, 122.698 355.933, 120.216 355.812, 110.217 355.691, 100.218 355.571, 90.218 355.507, 84.990 345.729, 82.895 335.951, 80.801 326.173, 78.706 320.358, 77.461 310.580, 75.366 300.801, 73.272 291.023, 71.177 285.208, 69.932 275.430, 67.837 265.652, 65.743 255.874, 63.648 250.059, 62.403 242.609, 69.073 235.159, 75.744 232.387, 78.226 232.508, 88.225 232.628, 98.224 232.749, 108.224 232.812, 113.453 242.591, 115.547 250.052, 117.145 " fill="none" stroke="rgb(0, 0, 0)" stroke-linecap="butt" stroke-linejoin="mitter" stroke-opacity="1.0" stroke-width="3.0" />
+            <path d=" M 303.111, 128.510 302.991, 118.511 302.870, 108.512 302.749, 98.513 302.686, 93.284 312.464, 95.378 322.242, 97.473 332.020, 99.567 337.835, 100.813 " fill="none" stroke="rgb(0, 0, 0)" stroke-linecap="butt" stroke-linejoin="mitter" stroke-opacity="1.0" stroke-width="3.0" />
+            <path d=" M 338.261, 136.039 338.140, 126.040 338.019, 116.041 337.898, 106.041 337.835, 100.813 345.285, 94.142 352.735, 87.471 355.507, 84.990 " fill="none" stroke="rgb(0, 0, 0)" stroke-linecap="butt" stroke-linejoin="mitter" stroke-opacity="1.0" stroke-width="3.0" />
+            <path d=" M 232.387, 78.226 242.165, 80.320 251.943, 82.415 261.721, 84.509 267.536, 85.755 " fill="none" stroke="rgb(0, 0, 0)" stroke-linecap="butt" stroke-linejoin="mitter" stroke-opacity="1.0" stroke-width="3.0" />
+        </g>
+    </g>
+</svg>
