@@ -1,11 +1,14 @@
 package io.github.amarcinkowski.algorithm;
 
+import java.util.List;
 import java.util.Vector;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import io.github.amarcinkowski.tetromino.Main;
+import io.github.amarcinkowski.tetromino.math.Conversion;
+import io.github.amarcinkowski.tetromino.math.XYZTBlock;
 import io.github.amarcinkowski.tetromino.visualisation.SVG;
 import io.github.amarcinkowski.tetromino.visualisation.Text;
 
@@ -129,7 +132,8 @@ public class Algorithm {
 
 	private static void printResults() {
 		Text.printFilled(cv.getFilled());
-		SVG.create(cv.getFilled());
+		List<XYZTBlock> blocks = Conversion.convertFilledToBlocks(cv.getFilled());
+		SVG.create(blocks);
 		Text.printTables();
 
 		System.out.println("\nRESULT " + Main.resultCount);

@@ -10,4 +10,6 @@ html
      // block
      g(transform='translate(#{block.screenx} #{block.screeny})')
       image(xlink:href='#{block.type.toString()}.svg')
+      text(x=40 y=12  style="fill: #ffffff;" font-family="Verdana" font-size="1.5") #{block.type.name()}
+      line(x1="40" y1="14" x2="40" y2="30" stroke-width="0.1" stroke="white")
      
