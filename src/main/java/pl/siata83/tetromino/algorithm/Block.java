@@ -19,17 +19,17 @@ import pl.siata83.tetromino.math.Transformations3D;
  */
 public class Block {
 
-	public static Vector[] cubeVector = Transformations3D
+	public static Vector<Integer[]>[] cubeVector = Transformations3D
 			.getAllPossibileBlocks();
 
 	public Block() {
 	}
 
-	public static int[] getBlock(int number, int space) {
-		return (int[]) cubeVector[space].get(number);
+	public static Integer[] getBlock(int number, int space) {
+		return (Integer[]) cubeVector[space].get(number);
 	}
 
-	public static Vector getAllPossibilities(int space) {
+	public static Vector<Integer[]> getAllPossibilities(int space) {
 		return cubeVector[space];
 	}
 

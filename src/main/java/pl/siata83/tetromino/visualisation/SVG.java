@@ -22,7 +22,7 @@ public class SVG {
 	private static String blockUpString = "<polygon points=\"10,10 40,10 40,20 10,20\"\n  style=\"fill:rgba(COLOR,0.5);stroke:black;stroke-width:2\" transform=\"translate(TRANSX,TRANSY),rotate(ROT 0,0)\"/>\n"
 			+ "\t\t<polygon points=\"20,10 30,10 30,20 20,20\"\n  style=\"fill:rgba(COLOR,0.5);stroke:black;stroke-width:2\" transform=\"translate(TRANSX,TRANSY),rotate(ROT 0,0)\"/>\n  ";
 	private static String blockDownString = "<polygon points=\"10,10 40,10 40,20 10,20 \"\n  style=\"fill:rgba(COLOR,0.5);stroke:black;stroke-width:2\" transform=\"translate(TRANSX,TRANSY),rotate(ROT 0,0)\"/>\n  ";
-	private static String blockOneString = "<polygon points=\"10,10 20,10 20,20 10,20 \"\n  style=\"fill:rgba(COLOR,0.5);stroke:black;stroke-width:2\" transform=\"translate(TRANSX,TRANSY),rotate(ROT 0,0)\"/>\n  ";
+//	private static String blockOneString = "<polygon points=\"10,10 20,10 20,20 10,20 \"\n  style=\"fill:rgba(COLOR,0.5);stroke:black;stroke-width:2\" transform=\"translate(TRANSX,TRANSY),rotate(ROT 0,0)\"/>\n  ";
 
 	private static void createFile(String fileString) throws Exception {
 		File file = new File("svg/out"

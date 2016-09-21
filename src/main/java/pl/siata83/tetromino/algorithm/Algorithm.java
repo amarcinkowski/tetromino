@@ -53,58 +53,59 @@ public class Algorithm {
 	// TODO czy mozliwe jest po usunieciu od razu proba wstawienia
 	// w jednym cyklu bnb
 	// FIXME pseudo rekurencja !!!
+
+	private static int factor = 0;
+
+	private static Vector<Integer> v = new Vector<Integer>();
+
 	public static void bnb() {
-		while (!cv.isEmpty(space))
+		
+		while (!cv.isEmpty(space)) {
 			space++;
-		Vector<Integer> v = new Vector<Integer>();
-		int factor = cv.factor();
+		}
+		
+		factor = cv.factor();
 
-		if (resultCurrentTypeCount[cv.getBlockcount()] == resultMaxTypes[cv
-				.getBlockcount()]
-				&& resultCurrentType[cv.getBlockcount()] == -1) {
-			factor = 0;
-			if (cv.getBlockcount() == 0) {
-				System.out.println("ALL RESULTS SEARCHED ");
-				System.exit(0);
-			}
-
+		if (allSolutionsFound()) {
+			System.out.println("all solutions found");
+			System.exit(0);
 		}
 
 		if (factor == 0) {
 			logger.trace("REMOVE");
-			int r_type = resultCurrentType[cv.getBlockcount() - 1];
-			int r_space = resultBlockStart[cv.getBlockcount() - 1];
-			int block[] = Block.getBlock(r_type, r_space);
+			int r_type = resultCurrentType[cv.getBlockCount() - 1];
+			int r_space = resultBlockStart[cv.getBlockCount() - 1];
+			Integer block[] = Block.getBlock(r_type, r_space);
 			if (cv.remove(block)) {
 				space = r_space;
-				resultCurrentType[cv.getBlockcount()] = -1;
-				resultCurrentTypeCount[cv.getBlockcount() + 1] = 0;
+				resultCurrentType[cv.getBlockCount()] = -1;
+				resultCurrentTypeCount[cv.getBlockCount() + 1] = 0;
 			}
 		} else {
 			v = cv.possibileInsertsVector(space);
-			resultMaxTypes[cv.getBlockcount()] = v.size();
+			resultMaxTypes[cv.getBlockCount()] = v.size();
 
-			int index = resultCurrentTypeCount[cv.getBlockcount()];
-			int r_type = v.get(index);
+			Integer index = resultCurrentTypeCount[cv.getBlockCount()];
+			Integer r_type = v.get(index);
 
-			int block[] = Block.getBlock(r_type, space);
+			Integer block[] = Block.getBlock(r_type, space);
 
 			if (cv.insert(block)) {
 				logger.trace("INSERT");
-				resultCurrentType[cv.getBlockcount() - 1] = r_type;
-				resultCurrentTypeCount[cv.getBlockcount() - 1]++;
-				resultBlockStart[cv.getBlockcount() - 1] = space;
+				resultCurrentType[cv.getBlockCount() - 1] = r_type;
+				resultCurrentTypeCount[cv.getBlockCount() - 1]++;
+				resultBlockStart[cv.getBlockCount() - 1] = space;
 			}
 		}
 
-		if (cv.getBlockcount() == MAX_BLOCK) {
+		solutionFound();
+	}
+
+	private static void solutionFound() {
+		if (cv.getBlockCount() == MAX_BLOCK) {
 			Main.resultCount++;
 
-			Text.printFilled(cv.getFilled());
-			SVG.create(cv.getFilled());
-			// Text.printTables();
-
-			System.out.println("\nRESULT " + Main.resultCount);
+			printResults();
 			cv = new CubeVolume();
 			space = 0;
 
@@ -118,13 +119,32 @@ public class Algorithm {
 					break;
 			for (int j = 0; j < i; j++) {
 				v = cv.possibileInsertsVector(resultBlockStart[j]);
-				int index = resultCurrentTypeCount[cv.getBlockcount()];
+				int index = resultCurrentTypeCount[cv.getBlockCount()];
 				int r_type = v.get(index - 1);
 				cv.insert(Block.getBlock(r_type, resultBlockStart[j]));
 
 			}
+		}
+	}
+
+	private static void printResults() {
+		Text.printFilled(cv.getFilled());
+		SVG.create(cv.getFilled());
+		Text.printTables();
+
+		System.out.println("\nRESULT " + Main.resultCount);
+	}
+
+	private static boolean allSolutionsFound() {
+		if (resultCurrentTypeCount[cv.getBlockCount()] == resultMaxTypes[cv.getBlockCount()]
+				&& resultCurrentType[cv.getBlockCount()] == -1) {
+			factor = 0;
+			if (cv.getBlockCount() == 0) {
+				return true;
+			}
 
 		}
+		return false;
 	}
 
 }

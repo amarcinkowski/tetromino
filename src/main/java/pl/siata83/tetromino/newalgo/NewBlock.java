@@ -18,7 +18,7 @@ public class NewBlock implements Comparable<NewBlock> {
 	 * @param n
 	 *            the n
 	 */
-	public NewBlock(int[] n) {
+	public NewBlock(Integer[] n) {
 		Arrays.sort(n);
 		this.n[0] = n[0];
 		this.n[1] = n[1];

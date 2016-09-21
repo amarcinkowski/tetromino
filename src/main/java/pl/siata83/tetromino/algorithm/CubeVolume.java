@@ -1,12 +1,3 @@
-/*
- * CubeVolume.java
- *
- * Created on 27 grudzie� 2007, 19:29
- *
- * To change this template, choose Tools | Template Manager
- * and open the template in the editor.
- */
-
 package pl.siata83.tetromino.algorithm;
 
 import java.util.Vector;
@@ -16,10 +7,6 @@ import org.slf4j.LoggerFactory;
 
 import pl.siata83.tetromino.math.Conversion;
 
-/**
- * 
- * @author siatan
- */
 public class CubeVolume {
 
 	private static Logger logger = LoggerFactory.getLogger(CubeVolume.class);
@@ -40,8 +27,7 @@ public class CubeVolume {
 	int removeTries = 0;
 
 	public static boolean exists(int x, int y, int z) {
-		if (x >= 0 && x < SIZE_X && y >= 0 && y < SIZE_Y && z >= 0
-				&& z < SIZE_Z) {
+		if (x >= 0 && x < SIZE_X && y >= 0 && y < SIZE_Y && z >= 0 && z < SIZE_Z) {
 			return true;
 		} else {
 			return false;
@@ -59,15 +45,16 @@ public class CubeVolume {
 		for (int i = 0; i < VOLUME; i++) {
 			if (isEmpty(i)) {
 				factor += possibilities[i];
-				if (possibilities[i] == 0)
+				if (possibilities[i] == 0) {
 					return 0;
+				}
 			}
-			logger.trace("factor (" + i + "/" + VOLUME + ") = " + factor);
+			logger.trace(String.format("factor (%d/%d)=%d", i, VOLUME, factor));
 		}
 		return factor;
 	}
 
-	public int getBlockcount() {
+	public int getBlockCount() {
 		return blockcount;
 	}
 
@@ -76,21 +63,21 @@ public class CubeVolume {
 	}
 
 	// int na byte
-	public boolean insert(int block[]) {
+	public boolean insert(Integer block[]) {
 
 		insertTries++;
 		if (!insertPossibile(block))
 			return false;
 
-		setBlockcount(getBlockcount() + 1);
+		setBlockcount(getBlockCount() + 1);
 		for (int i = 0; i < 4; i++) {
 			empty[block[i]] = false;
-			filled[block[i]] = getBlockcount();
+			filled[block[i]] = getBlockCount();
 		}
 		return true;
 	}
 
-	public boolean insertPossibile(int block[]) {
+	public boolean insertPossibile(Integer block[]) {
 		for (int i = 0; i < 4; i++)
 			if (!isEmpty(block[i]))
 				return false;
@@ -111,12 +98,12 @@ public class CubeVolume {
 
 	public byte possibileInserts(int space) {
 		byte count = 0;
-		Vector v = Block.getAllPossibilities(space);
+		Vector<Integer[]> v = Block.getAllPossibilities(space);
 		if (!isEmpty(space)) {
 			return -1;
 		}
 		for (int i = 0; i < v.size(); i++) {
-			int[] block = (int[]) v.get(i);
+			Integer[] block = (Integer[]) v.get(i);
 			if (insertPossibile(block))
 				count++;
 		}
@@ -128,22 +115,22 @@ public class CubeVolume {
 		if (!isEmpty(space))
 			return result;
 
-		Vector v = Block.getAllPossibilities(space);
+		Vector<Integer[]> v = Block.getAllPossibilities(space);
 		for (int i = 0; i < v.size(); i++) {
-			int block[] = (int[]) v.get(i);
+			Integer block[] = (Integer[]) v.get(i);
 			if (insertPossibile(block))
 				result.add(i);
 		}
 		return result;
 	}
 
-	public boolean remove(int block[]) {
+	public boolean remove(Integer block[]) {
 
 		removeTries++;
 		if (!removePossibile(block))
 			return false;
 
-		setBlockcount(getBlockcount() - 1);
+		setBlockcount(getBlockCount() - 1);
 		for (int i = 0; i < 4; i++) {
 			empty[block[i]] = true;
 			filled[block[i]] = 0;
@@ -151,7 +138,7 @@ public class CubeVolume {
 		return true;
 	}
 
-	public boolean removePossibile(int block[]) {
+	public boolean removePossibile(Integer block[]) {
 		for (int i = 0; i < 4; i++)
 			if (isEmpty(block[i]))
 				return false;

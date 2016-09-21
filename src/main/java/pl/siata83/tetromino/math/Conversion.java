@@ -22,8 +22,8 @@ public class Conversion {
 	 * @return n is index of field numbered by rows (x), then columns (y) and
 	 *         then levels (z)
 	 */
-	static int[] convertXYZtoN(double[][] array) {
-		int ret[] = { -1, -1, -1, -1 };
+	static Integer[] convertXYZtoN(double[][] array) {
+		Integer ret[] = { -1, -1, -1, -1 };
 		for (int i = 0; i < 4; i++) {
 			int x[] = new int[3];
 			for (int j = 0; j < 3; j++) {

@@ -8,7 +8,7 @@ public class Text {
 	public static void printTables() {
 		System.out.println("");
 		for (int i = 0; i < 18; i++)
-			if (i == Algorithm.getCv().getBlockcount())
+			if (i == Algorithm.getCv().getBlockCount())
 				System.out.print("_\t");
 			else
 				System.out.print("\t");

@@ -22,7 +22,7 @@ public class NewAlgorithm {
 		TreeSet<NewBlock> set = new TreeSet<NewBlock>();
 		for (int k = 0; k < CubeVolume.VOLUME; k++) {
 			for (int i = 1; i <= Transformations3D.MAX_BLOCK_TYPE; i++) {
-				int block[] = Transformations3D.block(i, k);
+				Integer block[] = Transformations3D.block(i, k);
 				if (Transformations3D.isInsertionPossibile(block)) {
 					set.add(new NewBlock(block));
 				}

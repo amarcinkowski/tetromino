@@ -154,7 +154,7 @@ public class Transformations3D {
 	 *            the shift
 	 * @return the int[]
 	 */
-	public static int[] block(int type, int shift) {
+	public static Integer[] block(int type, int shift) {
 		double[][] array = null;
 		try {
 			array = blockType(type, shift);
@@ -338,7 +338,7 @@ public class Transformations3D {
 	 *            the block
 	 * @return true, if successful
 	 */
-	public static boolean isInsertionPossibile(int[] block) {
+	public static boolean isInsertionPossibile(Integer[] block) {
 		for (int i = 0; i < 4; i++) {
 			if (block[i] == -1) {
 				return false;
@@ -353,13 +353,12 @@ public class Transformations3D {
 	 * @return the all possibile blocks
 	 */
 	@SuppressWarnings("unchecked")
-	@Deprecated
-	public static Vector<int[]>[] getAllPossibileBlocks() {
-		Vector<int[]>[] cubeVector = new Vector[CubeVolume.VOLUME];
+	public static Vector<Integer[]>[] getAllPossibileBlocks() {
+		Vector<Integer[]>[] cubeVector = new Vector[CubeVolume.VOLUME];
 		for (int k = 0; k < CubeVolume.VOLUME; k++) {
-			cubeVector[k] = new Vector<int[]>();
+			cubeVector[k] = new Vector<Integer[]>();
 			for (int i = 1; i <= MAX_BLOCK_TYPE; i++) {
-				int block[] = block(i, k);
+				Integer block[] = block(i, k);
 				if (isInsertionPossibile(block)) {
 					cubeVector[k].add(block);
 				}
