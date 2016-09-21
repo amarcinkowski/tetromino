@@ -21,7 +21,7 @@ public class CubeVolume {
 	private int blockcount = 0;
 	private boolean empty[] = new boolean[VOLUME];
 	private int filled[] = new int[VOLUME];
-
+	
 	int insertTries = 0;
 	private int possibilities[] = new int[VOLUME];
 	int removeTries = 0;
@@ -66,8 +66,9 @@ public class CubeVolume {
 	public boolean insert(Integer block[]) {
 
 		insertTries++;
-		if (!insertPossibile(block))
+		if (!insertPossibile(block)) {
 			return false;
+		}
 
 		setBlockcount(getBlockCount() + 1);
 		for (int i = 0; i < 4; i++) {

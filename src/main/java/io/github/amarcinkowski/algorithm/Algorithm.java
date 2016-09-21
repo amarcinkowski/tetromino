@@ -133,6 +133,7 @@ public class Algorithm {
 		Text.printTables();
 
 		System.out.println("\nRESULT " + Main.resultCount);
+		System.exit(1);
 	}
 
 	private static boolean allSolutionsFound() {
