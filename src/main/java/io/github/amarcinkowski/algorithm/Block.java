@@ -22,9 +22,6 @@ public class Block {
 	public static Vector<Integer[]>[] cubeVector = Transformations3D
 			.getAllPossibileBlocks();
 
-	public Block() {
-	}
-
 	public static Integer[] getBlock(int number, int space) {
 		return (Integer[]) cubeVector[space].get(number);
 	}
@@ -36,5 +33,8 @@ public class Block {
 	public static int getPossibilitiesCount(int space) {
 		return (int) cubeVector[space].size();
 	}
+
+	/** The Constant BLOCK_VOLUME. */
+	public final static int BLOCK_VOLUME = 4;
 
 }

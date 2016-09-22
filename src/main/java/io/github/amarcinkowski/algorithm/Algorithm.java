@@ -15,6 +15,8 @@ import io.github.amarcinkowski.tetromino.visualisation.Text;
 public class Algorithm {
 
 	private static CubeVolume cv = new CubeVolume();
+	
+	private static int resultCount = 0;
 
 	/**
 	 * Gets the cv.
@@ -27,11 +29,8 @@ public class Algorithm {
 
 	private static int space = 0;
 
-	/** The Constant BLOCK_VOLUME. */
-	private final static int BLOCK_VOLUME = 4;
-
 	/** The Constant MAX_BLOCK. */
-	private final static int MAX_BLOCK = CubeVolume.VOLUME / BLOCK_VOLUME;
+	private final static int MAX_BLOCK = CubeVolume.VOLUME / Block.BLOCK_VOLUME;
 
 	private static Logger logger = LoggerFactory.getLogger(Algorithm.class);
 	/**
@@ -61,54 +60,66 @@ public class Algorithm {
 
 	private static Vector<Integer> v = new Vector<Integer>();
 
-	public static void bnb() {
-		
+	public static boolean branchNBound() {
+
 		while (!cv.isEmpty(space)) {
 			space++;
 		}
-		
+
 		factor = cv.factor();
 
 		if (allSolutionsFound()) {
-			logger.info("all solutions found");
-			System.exit(0);
+			logger.info("--->>>> all solutions found");
+			return false;
 		}
 
 		if (factor == 0) {
-			logger.trace("REMOVE");
-			int r_type = resultCurrentType[cv.getBlockCount() - 1];
-			int r_space = resultBlockStart[cv.getBlockCount() - 1];
-			Integer block[] = Block.getBlock(r_type, r_space);
-			if (cv.remove(block)) {
-				space = r_space;
-				resultCurrentType[cv.getBlockCount()] = -1;
-				resultCurrentTypeCount[cv.getBlockCount() + 1] = 0;
-			}
+			removeLastInsertedBlock();
 		} else {
-			v = cv.possibileInsertsVector(space);
-			resultMaxTypes[cv.getBlockCount()] = v.size();
-
-			Integer index = resultCurrentTypeCount[cv.getBlockCount()];
-			Integer r_type = v.get(index);
-
-			Integer block[] = Block.getBlock(r_type, space);
-
-			if (cv.insert(block)) {
-				logger.trace("INSERT");
-				resultCurrentType[cv.getBlockCount() - 1] = r_type;
-				resultCurrentTypeCount[cv.getBlockCount() - 1]++;
-				resultBlockStart[cv.getBlockCount() - 1] = space;
-			}
+			insertNextPossibleBlock();
 		}
 
 		solutionFound();
+		
+		return true;
+	}
+
+	private static void insertNextPossibleBlock() {
+		v = cv.possibileInsertsVector(space);
+		resultMaxTypes[cv.getBlockCount()] = v.size();
+
+		Integer index = resultCurrentTypeCount[cv.getBlockCount()];
+		Integer r_type = v.get(index);
+
+		Integer block[] = Block.getBlock(r_type, space);
+
+		if (cv.insert(block)) {
+			logger.trace("INSERT");
+			resultCurrentType[cv.getBlockCount() - 1] = r_type;
+			resultCurrentTypeCount[cv.getBlockCount() - 1]++;
+			resultBlockStart[cv.getBlockCount() - 1] = space;
+		}
+	}
+
+	private static void removeLastInsertedBlock() {
+		logger.trace("REMOVE");
+		int r_type = resultCurrentType[cv.getBlockCount() - 1];
+		int r_space = resultBlockStart[cv.getBlockCount() - 1];
+		Integer block[] = Block.getBlock(r_type, r_space);
+		if (cv.remove(block)) {
+			space = r_space;
+			resultCurrentType[cv.getBlockCount()] = -1;
+			resultCurrentTypeCount[cv.getBlockCount() + 1] = 0;
+		}
 	}
 
 	private static void solutionFound() {
 		if (cv.getBlockCount() == MAX_BLOCK) {
-			Main.resultCount++;
+			resultCount++;
 
 			printResults();
+//			saveToSVG();
+			
 			cv = new CubeVolume();
 			space = 0;
 
@@ -132,12 +143,13 @@ public class Algorithm {
 	}
 
 	private static void printResults() {
+		logger.info(String.format("Result", resultCount));
 		Text.printFilled(cv.getFilled());
+	}
+	
+	private static void saveToSVG() {
 		List<XYZTBlock> blocks = Conversion.convertFilledToBlocks(cv.getFilled());
 		SVG.create(blocks);
-		Text.printTables();
-
-		logger.info(String.format("Result", Main.resultCount));
 	}
 
 	private static boolean allSolutionsFound() {

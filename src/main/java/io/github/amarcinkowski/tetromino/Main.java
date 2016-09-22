@@ -27,9 +27,6 @@ public class Main {
 	/** The start time. */
 	public static long startTime = System.currentTimeMillis();
 
-	/** The result count. */
-	public static int resultCount = 0;
-
 	/** The node count. */
 	private static int nodeCount = 0;
 
@@ -40,13 +37,12 @@ public class Main {
 	 *            the arguments
 	 */
 	public static void main(String[] args) {
-		while (true) {
-			if (nodeCount % 10000 == 0) {
-				logger.info("Count" + nodeCount + "\nTIME(sec)" + (System.currentTimeMillis() - startTime) / 1000);
+			while (Algorithm.branchNBound()) {
+//				if (nodeCount % 10000 == 0) {
+//				logger.info("Count" + nodeCount + "\nTIME(sec)" + (System.currentTimeMillis() - startTime) / 1000);
+//			}
+				nodeCount++;
 			}
-			Algorithm.bnb();
-			nodeCount++;
-		}
 	}
 
 }
