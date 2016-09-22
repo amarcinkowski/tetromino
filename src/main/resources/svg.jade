@@ -6,10 +6,17 @@ html
   body
    - var svgattributes = {'xmlns' : 'http://www.w3.org/2000/svg', 'version' : '1.1'};
    svg&attributes(svgattributes)
-    for block in blocks
-     // block
-     g(transform='translate(#{block.screenx} #{block.screeny})')
-      image(xlink:href='#{block.type.toString()}.svg')
-      text(x=40 y=12  style="fill: #ffffff;" font-family="Verdana" font-size="1.5") #{block.type.name()}
-      line(x1="40" y1="14" x2="40" y2="30" stroke-width="0.1" stroke="white")
+    // tetromino
+    g#tetro(transform='scale(5)')
+     text(id="c0" x=1 y=1  style="fill: #ffffff;" font-family="Verdana" font-size="0.1") amarcinkowski
+      animate(xlink:href="#c0" attributeType="CSS" attributeName="opacity" from="0" to="1" dur="1s" repeatCount="indefinite" begin="0s" id="a0")
+     for blockType in blockTypes
+      image(xlink:href='#{blockType.toString()}.svg' x=2 y='1')
+      text(x=22 y='#{11+2*blockType.ordinal()}'  style="fill: #ffffff;" font-family="Verdana" font-size="1.5") #{blockType.name()}     
+     for block in blocks
+      // block
+      g(transform='translate(#{block.screenx} #{block.screeny})')
+       image(xlink:href='#{block.type.toString()}.svg' id='c#{x++}')
+        animate(xlink:href="#c#{x}" id="a#{x}" attributeType="CSS" attributeName="opacity" from="1.2" to="-1.2" dur="9s" repeatCount="indefinite" begin="a#{x-1}.begin + 0.23s")
+       //line(x1='a#{block.screenx}' y1="10" x2="41" y2="30" stroke-width="0.1" stroke="white")
      

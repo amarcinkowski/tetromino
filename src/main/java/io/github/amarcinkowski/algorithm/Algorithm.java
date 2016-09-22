@@ -70,7 +70,7 @@ public class Algorithm {
 		factor = cv.factor();
 
 		if (allSolutionsFound()) {
-			System.out.println("all solutions found");
+			logger.info("all solutions found");
 			System.exit(0);
 		}
 
@@ -118,8 +118,9 @@ public class Algorithm {
 			for (i = MAX_BLOCK - 1; i > 0; i--)
 				if (resultCurrentTypeCount[i] == resultMaxTypes[i]) {
 					resultCurrentType[i] = -1;
-				} else
+				} else {
 					break;
+				}
 			for (int j = 0; j < i; j++) {
 				v = cv.possibileInsertsVector(resultBlockStart[j]);
 				int index = resultCurrentTypeCount[cv.getBlockCount()];
@@ -136,7 +137,7 @@ public class Algorithm {
 		SVG.create(blocks);
 		Text.printTables();
 
-		System.out.println("\nRESULT " + Main.resultCount);
+		logger.info(String.format("Result", Main.resultCount));
 	}
 
 	private static boolean allSolutionsFound() {

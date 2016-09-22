@@ -10,7 +10,7 @@
     </g>
     <g id="RenderLayer_LineSet 2" inkscape:groupmode="lineset" inkscape:label="RenderLayer_LineSet 2">
         <g id="fills" inkscape:groupmode="layer" inkscape:label="fills" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape">
-            <path d=" M 250.290, 136.805 285.439, 144.334 303.111, 128.510 338.261, 136.039 355.933, 120.216 355.507, 84.990 320.358, 77.461 285.208, 69.932 250.059, 62.403 232.387, 78.226 232.812, 113.453 250.052, 117.145 250.290, 136.805  z" fill="rgb(10, 56, 255)" fill-opacity="0.30000001192092896" fill_rule="evenodd" stroke="none" />
+            <path d=" M 250.290, 136.805 285.439, 144.334 303.111, 128.510 338.261, 136.039 355.933, 120.216 355.507, 84.990 320.358, 77.461 285.208, 69.932 250.059, 62.403 232.387, 78.226 232.812, 113.453 250.052, 117.145 250.290, 136.805  z" fill="rgb(10, 56, 55)" fill-opacity="0.30000001192092896" fill_rule="evenodd" stroke="none" />
         </g>
         <g id="strokes" inkscape:groupmode="layer" inkscape:label="strokes">
             <path d=" M 285.439, 144.334 285.318, 134.334 285.198, 124.335 285.077, 114.336 285.014, 109.107 " fill="none" stroke="rgb(0, 0, 0)" stroke-linecap="butt" stroke-linejoin="mitter" stroke-opacity="1.0" stroke-width="3.0" />
