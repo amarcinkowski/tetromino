@@ -78,7 +78,7 @@ public class Algorithm {
 		Integer index = resultCurrentTypeCount[cubeVolume.getBlockCount()];
 		Integer r_type = vector.get(index);
 
-		Integer block[] = Block.getBlock(r_type, space);
+		int block[] = Block.getBlock(r_type, space);
 
 		if (cubeVolume.insert(block)) {
 			logger.trace("INSERT");
@@ -92,7 +92,7 @@ public class Algorithm {
 		logger.trace("REMOVE");
 		int r_type = resultCurrentType[cubeVolume.getBlockCount() - 1];
 		int r_space = resultBlockStart[cubeVolume.getBlockCount() - 1];
-		Integer block[] = Block.getBlock(r_type, r_space);
+		int block[] = Block.getBlock(r_type, r_space);
 		if (cubeVolume.remove(block)) {
 			space = r_space;
 			resultCurrentType[cubeVolume.getBlockCount()] = -1;

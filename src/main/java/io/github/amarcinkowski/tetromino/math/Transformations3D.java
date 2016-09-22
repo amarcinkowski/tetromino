@@ -21,11 +21,18 @@ import org.slf4j.LoggerFactory;
  */
 public class Transformations3D {
 
+	public static final double[] V101 = { 1.0, 0.0, 1.0, 1.0 };
+
+	public static final double[] V200 = { 2.0, 0.0, 0.0, 1.0 };
+
+	public static final double[] V100 = { 1.0, 0.0, 0.0, 1.0 };
+
+	public static final double[] V000 = { 0.0, 0.0, 0.0, 1.0 };
+
 	/** The logger. */
 	public static Logger logger = LoggerFactory.getLogger(Transformations3D.class);
 
-	private final static double[][] BLOCK_3D_VERTICES = { { 0.0, 0.0, 0.0, 1.0 }, { 1.0, 0.0, 0.0, 1.0 },
-			{ 2.0, 0.0, 0.0, 1.0 }, { 1.0, 0.0, 1.0, 1.0 } };
+	private final static double[][] BLOCK_3D_VERTICES = { V000, V100, V200, V101 };
 
 	/** The c. */
 	private static double[][] a, b, c;
@@ -113,19 +120,19 @@ public class Transformations3D {
 		switch (q) {
 		case 'x': // Rot X
 			double[][] rotx = { { 1.0, 0.0, 0.0, 0.0 }, { 0.0, Math.cos(alfa), -Math.sin(alfa), 0.0 },
-					{ 0.0, Math.sin(alfa), Math.cos(alfa), 0.0 }, { 0.0, 0.0, 0.0, 1.0 } };
+					{ 0.0, Math.sin(alfa), Math.cos(alfa), 0.0 }, V000 };
 			array = matrixMultiply(rotx, rotated);
 			break;
 		case 'y':
 			// Rot Y
 			double[][] roty = { { Math.cos(alfa), 0.0, Math.sin(alfa), 0.0 }, { 0.0, 1.0, 0.0, 0.0 },
-					{ -Math.sin(alfa), 0.0, Math.cos(alfa), 0.0 }, { 0.0, 0.0, 0.0, 1.0 } };
+					{ -Math.sin(alfa), 0.0, Math.cos(alfa), 0.0 }, V000 };
 			array = matrixMultiply(roty, rotated);
 			break;
 		case 'z':
 			// Rot Z
 			double[][] rotz = { { Math.cos(alfa), -Math.sin(alfa), 0.0, 0.0 },
-					{ Math.sin(alfa), Math.cos(alfa), 0.0, 0.0 }, { 0.0, 0.0, 1.0, 0.0 }, { 0.0, 0.0, 0.0, 1.0 } };
+					{ Math.sin(alfa), Math.cos(alfa), 0.0, 0.0 }, { 0.0, 0.0, 1.0, 0.0 }, V000 };
 			array = matrixMultiply(rotz, rotated);
 			break;
 		}
@@ -141,7 +148,7 @@ public class Transformations3D {
 	 *            the shift
 	 * @return the int[]
 	 */
-	public static Integer[] block(int type, int shift) {
+	public static int[] block(int type, int shift) {
 		double[][] array = null;
 		try {
 			array = blockType(type, shift);
@@ -325,7 +332,7 @@ public class Transformations3D {
 	 *            the block
 	 * @return true, if successful
 	 */
-	public static boolean isInsertionPossibile(Integer[] block) {
+	public static boolean isInsertionPossibile(int[] block) {
 		for (int i = 0; i < 4; i++) {
 			if (block[i] == -1) {
 				return false;

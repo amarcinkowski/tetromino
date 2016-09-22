@@ -6,6 +6,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Vector;
 
+import org.apache.commons.math3.exception.NumberIsTooSmallException;
+
 import io.github.amarcinkowski.tetromino.algorithm.BlockType;
 import io.github.amarcinkowski.tetromino.algorithm.CubeVolume;
 import io.github.amarcinkowski.tetromino.algorithm.XYZTBlock;
@@ -24,8 +26,8 @@ public class Conversion {
 	 * @return n is index of field numbered by rows (x), then columns (y) and
 	 *         then levels (z)
 	 */
-	static Integer[] convertXYZtoN(double[][] array) {
-		Integer result[] = { -1, -1, -1, -1 };
+	static int[] convertXYZtoN(double[][] array) {
+		int result[] = { -1, -1, -1, -1 };
 		for (int i = 0; i < 4; i++) {
 			int x[] = new int[3];
 			for (int j = 0; j < 3; j++) {
@@ -63,6 +65,9 @@ public class Conversion {
 	 * @return the int[]
 	 */
 	public static int[] convertNtoXYZ(int number) {
+		if (number < 0) {
+			throw new NumberIsTooSmallException(number, 0, true);
+		}
 		int xyz[] = new int[3];
 		xyz[0] = number % CubeVolume.SIZE_X;
 		xyz[1] = number % (CubeVolume.SIZE_X * CubeVolume.SIZE_Y)

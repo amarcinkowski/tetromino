@@ -64,7 +64,7 @@ public class CubeVolume {
 	}
 
 	// int na byte
-	public boolean insert(Integer block[]) {
+	public boolean insert(int block[]) {
 
 		insertTries++;
 		if (!insertPossibile(block)) {
@@ -79,7 +79,7 @@ public class CubeVolume {
 		return true;
 	}
 
-	public boolean insertPossibile(Integer block[]) {
+	public boolean insertPossibile(int block[]) {
 		for (int i = 0; i < 4; i++)
 			if (!isEmpty(block[i]))
 				return false;
@@ -100,12 +100,12 @@ public class CubeVolume {
 
 	public byte possibileInserts(int space) {
 		byte count = 0;
-		Vector<Integer[]> v = Block.getAllPossibilities(space);
+		Vector<int[]> v = Block.getAllPossibilities(space);
 		if (!isEmpty(space)) {
 			return -1;
 		}
 		for (int i = 0; i < v.size(); i++) {
-			Integer[] block = (Integer[]) v.get(i);
+			int[] block = v.get(i);
 			if (insertPossibile(block))
 				count++;
 		}
@@ -117,16 +117,16 @@ public class CubeVolume {
 		if (!isEmpty(space))
 			return result;
 
-		Vector<Integer[]> v = Block.getAllPossibilities(space);
+		Vector<int[]> v = Block.getAllPossibilities(space);
 		for (int i = 0; i < v.size(); i++) {
-			Integer block[] = (Integer[]) v.get(i);
+			int block[] = v.get(i);
 			if (insertPossibile(block))
 				result.add(i);
 		}
 		return result;
 	}
 
-	public boolean remove(Integer block[]) {
+	public boolean remove(int block[]) {
 
 		removeTries++;
 		if (!removePossibile(block))
@@ -140,7 +140,7 @@ public class CubeVolume {
 		return true;
 	}
 
-	public boolean removePossibile(Integer block[]) {
+	public boolean removePossibile(int block[]) {
 		for (int i = 0; i < 4; i++)
 			if (isEmpty(block[i]))
 				return false;
@@ -157,12 +157,12 @@ public class CubeVolume {
 	 * @return the all possibile blocks
 	 */
 	@SuppressWarnings("unchecked")
-	public static Vector<Integer[]>[] getAllPossibileBlocks() {
-		Vector<Integer[]>[] cubeVector = new Vector[VOLUME];
+	public static Vector<int[]>[] getAllPossibileBlocks() {
+		Vector<int[]>[] cubeVector = new Vector[VOLUME];
 		for (int k = 0; k < VOLUME; k++) {
-			cubeVector[k] = new Vector<Integer[]>();
+			cubeVector[k] = new Vector<int[]>();
 			for (int i = 1; i <= Transformations3D.MAX_BLOCK_TYPE; i++) {
-				Integer block[] = Transformations3D.block(i, k);
+				int block[] = Transformations3D.block(i, k);
 				if (Transformations3D.isInsertionPossibile(block)) {
 					cubeVector[k].add(block);
 				}

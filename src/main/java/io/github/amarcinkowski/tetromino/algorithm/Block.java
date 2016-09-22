@@ -6,14 +6,14 @@ public class Block {
 
 	public final static int BLOCK_VOLUME = 4;
 
-	public static Vector<Integer[]>[] cubeVector = CubeVolume
+	public static Vector<int[]>[] cubeVector = CubeVolume
 			.getAllPossibileBlocks();
 
-	public static Integer[] getBlock(int number, int space) {
-		return (Integer[]) cubeVector[space].get(number);
+	public static int[] getBlock(int number, int space) {
+		return cubeVector[space].get(number);
 	}
 
-	public static Vector<Integer[]> getAllPossibilities(int space) {
+	public static Vector<int[]> getAllPossibilities(int space) {
 		return cubeVector[space];
 	}
 
