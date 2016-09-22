@@ -9,8 +9,8 @@ import de.neuland.jade4j.Jade4J;
 import de.neuland.jade4j.JadeConfiguration;
 import de.neuland.jade4j.exceptions.JadeException;
 import de.neuland.jade4j.template.JadeTemplate;
-import io.github.amarcinkowski.tetromino.math.BlockType;
-import io.github.amarcinkowski.tetromino.math.XYZTBlock;
+import io.github.amarcinkowski.tetromino.algorithm.BlockType;
+import io.github.amarcinkowski.tetromino.algorithm.XYZTBlock;
 
 public class SVG {
 

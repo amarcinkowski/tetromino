@@ -9,14 +9,10 @@
 
 package io.github.amarcinkowski.tetromino.math;
 
-import java.util.Vector;
-
 import org.apache.commons.math3.linear.MatrixUtils;
 import org.apache.commons.math3.linear.RealMatrix;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import io.github.amarcinkowski.algorithm.CubeVolume;
 
 /**
  * The Class Transformations3D.
@@ -28,10 +24,8 @@ public class Transformations3D {
 	/** The logger. */
 	public static Logger logger = LoggerFactory.getLogger(Transformations3D.class);
 
-	/** The Constant BLOCK. */
-	private final static double[][] BLOCK = { { 0.0, 0.0, 0.0, 1.0 },
-			{ 1.0, 0.0, 0.0, 1.0 }, { 2.0, 0.0, 0.0, 1.0 },
-			{ 1.0, 0.0, 1.0, 1.0 } };
+	private final static double[][] BLOCK_3D_VERTICES = { { 0.0, 0.0, 0.0, 1.0 }, { 1.0, 0.0, 0.0, 1.0 },
+			{ 2.0, 0.0, 0.0, 1.0 }, { 1.0, 0.0, 1.0, 1.0 } };
 
 	/** The c. */
 	private static double[][] a, b, c;
@@ -48,13 +42,12 @@ public class Transformations3D {
 	 *            the transformed
 	 * @return the double[][]
 	 */
-	private static double[][] matrixMultiply(double[][] transformation,
-			double[][] transformed) {
+	private static double[][] matrixMultiply(double[][] transformation, double[][] transformed) {
 		double[][] arraysB = transformation;
 		double[][] arraysC = new double[4][4];
 
 		// Create three instances of Matrix
-		
+
 		RealMatrix matrixA = MatrixUtils.createRealMatrix(transformed);
 		RealMatrix matrixB = MatrixUtils.createRealMatrix(arraysB);
 		RealMatrix matrixC = MatrixUtils.createRealMatrix(4, 4);
@@ -77,8 +70,9 @@ public class Transformations3D {
 	 * @return the double[][]
 	 */
 	private static double[][] translate(int[] dimension, double[][] transformed) {
-		if (dimension.length != 3)
+		if (dimension.length != 3) {
 			throw new NumberFormatException("Should be 3 dimensions");
+		}
 		return translate(dimension[0], dimension[1], dimension[2], transformed);
 	}
 
@@ -95,11 +89,9 @@ public class Transformations3D {
 	 *            the transformed
 	 * @return the double[][]
 	 */
-	private static double[][] translate(int x, int y, int z,
-			double[][] transformed) {
+	private static double[][] translate(int x, int y, int z, double[][] transformed) {
 		// Trans
-		double[][] trans = { { 1.0, 0.0, 0.0, 0.0 }, { 0.0, 1.0, 0.0, 0.0 },
-				{ 0.0, 0.0, 1.0, 0.0 }, { x, y, z, 1.0 } };
+		double[][] trans = { { 1.0, 0.0, 0.0, 0.0 }, { 0.0, 1.0, 0.0, 0.0 }, { 0.0, 0.0, 1.0, 0.0 }, { x, y, z, 1.0 } };
 		double[][] array = matrixMultiply(trans, transformed);
 		return array;
 	}
@@ -120,25 +112,20 @@ public class Transformations3D {
 		double alfa = Math.PI / 2 * x90;
 		switch (q) {
 		case 'x': // Rot X
-			double[][] rotx = { { 1.0, 0.0, 0.0, 0.0 },
-					{ 0.0, Math.cos(alfa), -Math.sin(alfa), 0.0 },
-					{ 0.0, Math.sin(alfa), Math.cos(alfa), 0.0 },
-					{ 0.0, 0.0, 0.0, 1.0 } };
+			double[][] rotx = { { 1.0, 0.0, 0.0, 0.0 }, { 0.0, Math.cos(alfa), -Math.sin(alfa), 0.0 },
+					{ 0.0, Math.sin(alfa), Math.cos(alfa), 0.0 }, { 0.0, 0.0, 0.0, 1.0 } };
 			array = matrixMultiply(rotx, rotated);
 			break;
 		case 'y':
 			// Rot Y
-			double[][] roty = { { Math.cos(alfa), 0.0, Math.sin(alfa), 0.0 },
-					{ 0.0, 1.0, 0.0, 0.0 },
-					{ -Math.sin(alfa), 0.0, Math.cos(alfa), 0.0 },
-					{ 0.0, 0.0, 0.0, 1.0 } };
+			double[][] roty = { { Math.cos(alfa), 0.0, Math.sin(alfa), 0.0 }, { 0.0, 1.0, 0.0, 0.0 },
+					{ -Math.sin(alfa), 0.0, Math.cos(alfa), 0.0 }, { 0.0, 0.0, 0.0, 1.0 } };
 			array = matrixMultiply(roty, rotated);
 			break;
 		case 'z':
 			// Rot Z
 			double[][] rotz = { { Math.cos(alfa), -Math.sin(alfa), 0.0, 0.0 },
-					{ Math.sin(alfa), Math.cos(alfa), 0.0, 0.0 },
-					{ 0.0, 0.0, 1.0, 0.0 }, { 0.0, 0.0, 0.0, 1.0 } };
+					{ Math.sin(alfa), Math.cos(alfa), 0.0, 0.0 }, { 0.0, 0.0, 1.0, 0.0 }, { 0.0, 0.0, 0.0, 1.0 } };
 			array = matrixMultiply(rotz, rotated);
 			break;
 		}
@@ -179,7 +166,7 @@ public class Transformations3D {
 	 */
 	private static double[][] blockType(int type, int shift) throws Exception {
 		double array[][] = null;
-		a = BLOCK;
+		a = BLOCK_3D_VERTICES;
 		if (type < 1 && type > MAX_BLOCK_TYPE)
 			throw new Exception("No such block type.");
 
@@ -345,25 +332,5 @@ public class Transformations3D {
 			}
 		}
 		return true;
-	}
-
-	/**
-	 * Gets the all possibile blocks.
-	 * 
-	 * @return the all possibile blocks
-	 */
-	@SuppressWarnings("unchecked")
-	public static Vector<Integer[]>[] getAllPossibileBlocks() {
-		Vector<Integer[]>[] cubeVector = new Vector[CubeVolume.VOLUME];
-		for (int k = 0; k < CubeVolume.VOLUME; k++) {
-			cubeVector[k] = new Vector<Integer[]>();
-			for (int i = 1; i <= MAX_BLOCK_TYPE; i++) {
-				Integer block[] = block(i, k);
-				if (isInsertionPossibile(block)) {
-					cubeVector[k].add(block);
-				}
-			}
-		}
-		return cubeVector;
 	}
 }

@@ -6,9 +6,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Vector;
 
-import io.github.amarcinkowski.algorithm.CubeVolume;
+import io.github.amarcinkowski.tetromino.algorithm.BlockType;
+import io.github.amarcinkowski.tetromino.algorithm.CubeVolume;
+import io.github.amarcinkowski.tetromino.algorithm.XYZTBlock;
 
 public class Conversion {
+
+	private static HashMap<Integer, Vector<Integer>> map;
 
 	/**
 	 * Convert xyz to n.
@@ -21,15 +25,15 @@ public class Conversion {
 	 *         then levels (z)
 	 */
 	static Integer[] convertXYZtoN(double[][] array) {
-		Integer ret[] = { -1, -1, -1, -1 };
+		Integer result[] = { -1, -1, -1, -1 };
 		for (int i = 0; i < 4; i++) {
 			int x[] = new int[3];
 			for (int j = 0; j < 3; j++) {
 				x[j] = (int) Math.round(array[i][j]);
 			}
-			ret[i] = convertXYZtoN(x[0], x[1], x[2]);
+			result[i] = convertXYZtoN(x[0], x[1], x[2]);
 		}
-		return ret;
+		return result;
 	}
 
 	/**
@@ -67,8 +71,6 @@ public class Conversion {
 		return xyz;
 	}
 
-	private static HashMap<Integer, Vector<Integer>> map;
-
 	private static void addToMap(int index, int blockNumber) {
 		Vector<Integer> v = map.get(index);
 		if (v == null) {
@@ -76,6 +78,10 @@ public class Conversion {
 		}
 		v.add(blockNumber);
 		map.put(index, v);
+	}
+	
+	private boolean isOneBlock() {
+		return false;
 	}
 	
 	public static List<XYZTBlock> convertFilledToBlocks(int n[]) {

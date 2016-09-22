@@ -1,4 +1,4 @@
-package io.github.amarcinkowski.tetromino.math;
+package io.github.amarcinkowski.tetromino.algorithm;
 
 /**
  * The Class Conversion.

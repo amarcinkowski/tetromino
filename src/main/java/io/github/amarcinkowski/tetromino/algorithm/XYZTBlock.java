@@ -1,4 +1,4 @@
-package io.github.amarcinkowski.tetromino.math;
+package io.github.amarcinkowski.tetromino.algorithm;
 
 public class XYZTBlock {
 	public int x, y, z;
