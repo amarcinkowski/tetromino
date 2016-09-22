@@ -6,7 +6,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import io.github.amarcinkowski.tetromino.math.Conversion;
-import io.github.amarcinkowski.tetromino.math.Transformations3D;
 
 public class CubeVolume {
 
@@ -22,7 +21,7 @@ public class CubeVolume {
 	private int blockcount = 0;
 	private boolean empty[] = new boolean[VOLUME];
 	private int filled[] = new int[VOLUME];
-	
+
 	int insertTries = 0;
 	private int possibilities[] = new int[VOLUME];
 	int removeTries = 0;
@@ -37,9 +36,8 @@ public class CubeVolume {
 		}
 	}
 
-
 	public int factor() {
-		
+
 		for (int x = 0; x < VOLUME; x++) {
 			possibilities[x] = possibileInserts(x);
 		}
@@ -151,26 +149,6 @@ public class CubeVolume {
 
 	public void setBlockCount(int blockcount) {
 		this.blockcount = blockcount;
-	}
-
-	/**
-	 * Gets the all possibile blocks.
-	 * 
-	 * @return the all possibile blocks
-	 */
-	@SuppressWarnings("unchecked")
-	public static Vector<int[]>[] getAllPossibileBlocks() {
-		Vector<int[]>[] cubeVector = new Vector[VOLUME];
-		for (int k = 0; k < VOLUME; k++) {
-			cubeVector[k] = new Vector<int[]>();
-			for (int i = 1; i <= Transformations3D.MAX_BLOCK_TYPE; i++) {
-				int block[] = Transformations3D.block(i, k);
-				if (Transformations3D.isInsertionPossibile(block)) {
-					cubeVector[k].add(block);
-				}
-			}
-		}
-		return cubeVector;
 	}
 
 	/** Creates a new instance of CubeVolume */

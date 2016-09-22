@@ -7,7 +7,7 @@ import io.github.amarcinkowski.tetromino.math.Conversion;
 
 public class Text {
 
-	private static Logger logger = LoggerFactory.getLogger(Text.class);
+//	private static Logger logger = LoggerFactory.getLogger(Text.class);
 
 	public static void printFilled(int[] filled) {
 		for (int z = 0; z < 2; z++) {

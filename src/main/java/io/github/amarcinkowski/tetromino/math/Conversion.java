@@ -26,7 +26,7 @@ public class Conversion {
 	 * @return n is index of field numbered by rows (x), then columns (y) and
 	 *         then levels (z)
 	 */
-	static int[] vectorToNBlock(double[][] array) {
+	public static int[] vectorToNBlock(double[][] array) {
 		int result[] = { -1, -1, -1, -1 };
 		for (int i = 0; i < 4; i++) {
 			int x[] = new int[3];
@@ -75,45 +75,45 @@ public class Conversion {
 		return xyz;
 	}
 
-	public static Block n2Block(int[] n) {
+	public static Block n4ToBlock(int[] n4) {
 		BlockType type = null;
-		if (n[0] + 1 == n[1] && n[0] + 2 == n[2]) {
-			if (n[1] == n[3] - 36) {
+		if (n4[0] + 1 == n4[1] && n4[0] + 2 == n4[2]) {
+			if (n4[1] == n4[3] - 36) {
 				type = BlockType.HORIZONTAL_UP;
 			}
-			if (n[1] == n[3] - 6) {
+			if (n4[1] == n4[3] - 6) {
 				type = BlockType.HORIZONTAL_SOUTH;
 			}
 		}
-		if ((n[1] + 1 == n[2] && n[1] + 2 == n[3])) {
-			if (n[0] == n[2] - 36) {
+		if ((n4[1] + 1 == n4[2] && n4[1] + 2 == n4[3])) {
+			if (n4[0] == n4[2] - 36) {
 				type = BlockType.HORIZONTAL_DOWN;
 			}
-			if (n[0] == n[2] - 6) {
+			if (n4[0] == n4[2] - 6) {
 				type = BlockType.HORIZONTAL_NORTH;
 			}
 		}
-		if (n[0] + 6 == n[1] && n[0] + 12 == n[2]) {
-			if (n[1] == n[3] - 36) {
+		if (n4[0] + 6 == n4[1] && n4[0] + 12 == n4[2]) {
+			if (n4[1] == n4[3] - 36) {
 				type = BlockType.VERTICAL_UP;
 			}
 		}
-		if (n[1] + 6 == n[2] && n[1] + 12 == n[3]) {
-			if (n[0] == n[2] - 36) {
+		if (n4[1] + 6 == n4[2] && n4[1] + 12 == n4[3]) {
+			if (n4[0] == n4[2] - 36) {
 				type = BlockType.VERTICAL_DOWN;
 			}
 		}
-		if (n[0] + 6 == n[2] && n[0] + 12 == n[3]) {
-			if (n[1] == n[2] - 1) {
+		if (n4[0] + 6 == n4[2] && n4[0] + 12 == n4[3]) {
+			if (n4[1] == n4[2] - 1) {
 				type = BlockType.VERTICAL_WEST;
 			}
 		}
-		if (n[0] + 6 == n[1] && n[0] + 12 == n[3]) {
-			if (n[1] == n[2] - 1) {
+		if (n4[0] + 6 == n4[1] && n4[0] + 12 == n4[3]) {
+			if (n4[1] == n4[2] - 1) {
 				type = BlockType.VERTICAL_EAST;
 			}
 		}
-		int xyz[] = Conversion.n2XYZ(n[0]);
+		int xyz[] = Conversion.n2XYZ(n4[0]);
 		return new BlockBuilder().xyz(xyz).type(type).build();
 	}
 
@@ -126,10 +126,9 @@ public class Conversion {
 		for (Integer key : map.keySet()) {
 			ArrayList<Integer> v = new ArrayList<>(map.get(key));
 			Collections.sort(v);
-			// XXX TODO xXXXXXX XXX n4
-//			Block block = new BlockBuilder().n4(v.toArray()).build();
 			int n4[] = v.stream().mapToInt(Integer::intValue).toArray();
-			blocks.add(n2Block(n4));
+			Block block = new BlockBuilder().n4(n4).build();
+			blocks.add(block);
 		}
 		return blocks;
 	}

@@ -1,5 +1,7 @@
 package io.github.amarcinkowski.tetromino.algorithm;
 
+import io.github.amarcinkowski.tetromino.math.Conversion;
+
 public class BlockBuilder {
 
 	private Block block = new Block();
@@ -28,6 +30,7 @@ public class BlockBuilder {
 	}
 
 	public BlockBuilder n4(int[] array) {
-		return null;
+		block = Conversion.n4ToBlock(array);
+		return this;
 	}
 }
