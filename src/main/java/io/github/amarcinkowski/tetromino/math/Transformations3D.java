@@ -155,7 +155,7 @@ public class Transformations3D {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return Conversion.convertXYZtoN(array);
+		return Conversion.vectorToNBlock(array);
 	}
 
 	// TODO switcha zmienic na 2 fory (po 4 obroty w 2 plaszczyznach x 4
@@ -321,7 +321,7 @@ public class Transformations3D {
 			array = translate(-1, -1, 0, b);
 			break;
 		}
-		array = translate(Conversion.convertNtoXYZ(shift), array);
+		array = translate(Conversion.n2XYZ(shift), array);
 		return array;
 	}
 

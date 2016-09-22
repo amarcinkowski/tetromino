@@ -27,6 +27,8 @@ public class CubeVolume {
 	private int possibilities[] = new int[VOLUME];
 	int removeTries = 0;
 
+	static int cubeVolumePointer = 0;
+
 	public static boolean exists(int x, int y, int z) {
 		if (x >= 0 && x < SIZE_X && y >= 0 && y < SIZE_Y && z >= 0 && z < SIZE_Z) {
 			return true;
@@ -71,7 +73,7 @@ public class CubeVolume {
 			return false;
 		}
 
-		setBlockcount(getBlockCount() + 1);
+		setBlockCount(getBlockCount() + 1);
 		for (int i = 0; i < 4; i++) {
 			empty[block[i]] = false;
 			filled[block[i]] = getBlockCount();
@@ -87,12 +89,12 @@ public class CubeVolume {
 	}
 
 	public boolean isEmpty(int n) {
-		int dim[] = Conversion.convertNtoXYZ(n);
+		int dim[] = Conversion.n2XYZ(n);
 		return isEmpty(dim[0], dim[1], dim[2]);
 	}
 
 	public boolean isEmpty(int x, int y, int z) {
-		if (exists(x, y, z) && empty[Conversion.convertXYZtoN(x, y, z)])
+		if (exists(x, y, z) && empty[Conversion.xyz2N(x, y, z)])
 			return true;
 		else
 			return false;
@@ -132,7 +134,7 @@ public class CubeVolume {
 		if (!removePossibile(block))
 			return false;
 
-		setBlockcount(getBlockCount() - 1);
+		setBlockCount(getBlockCount() - 1);
 		for (int i = 0; i < 4; i++) {
 			empty[block[i]] = true;
 			filled[block[i]] = 0;
@@ -147,7 +149,7 @@ public class CubeVolume {
 		return true;
 	}
 
-	public void setBlockcount(int blockcount) {
+	public void setBlockCount(int blockcount) {
 		this.blockcount = blockcount;
 	}
 

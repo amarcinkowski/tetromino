@@ -26,14 +26,14 @@ public class Conversion {
 	 * @return n is index of field numbered by rows (x), then columns (y) and
 	 *         then levels (z)
 	 */
-	static int[] convertXYZtoN(double[][] array) {
+	static int[] vectorToNBlock(double[][] array) {
 		int result[] = { -1, -1, -1, -1 };
 		for (int i = 0; i < 4; i++) {
 			int x[] = new int[3];
 			for (int j = 0; j < 3; j++) {
 				x[j] = (int) Math.round(array[i][j]);
 			}
-			result[i] = convertXYZtoN(x[0], x[1], x[2]);
+			result[i] = xyz2N(x[0], x[1], x[2]);
 		}
 		return result;
 	}
@@ -49,7 +49,7 @@ public class Conversion {
 	 *            the z
 	 * @return the int
 	 */
-	public static int convertXYZtoN(int x, int y, int z) {
+	public static int xyz2N(int x, int y, int z) {
 		if (CubeVolume.exists(x, y, z))
 			return x + y * CubeVolume.SIZE_X + z * CubeVolume.SIZE_X
 					* CubeVolume.SIZE_Y;
@@ -64,7 +64,7 @@ public class Conversion {
 	 *            the number
 	 * @return the int[]
 	 */
-	public static int[] convertNtoXYZ(int number) {
+	public static int[] n2XYZ(int number) {
 		if (number < 0) {
 			throw new NumberIsTooSmallException(number, 0, true);
 		}
@@ -85,10 +85,6 @@ public class Conversion {
 		map.put(index, v);
 	}
 	
-	private boolean isOneBlock() {
-		return false;
-	}
-	
 	public static List<XYZTBlock> convertFilledToBlocks(int n[]) {
 		List<XYZTBlock> xyztBlocks = new ArrayList<>(); 
 		map = new HashMap<Integer, Vector<Integer>>();
@@ -98,7 +94,7 @@ public class Conversion {
 		for (Integer key : map.keySet()) {
 			Vector<Integer> v = map.get(key);
 			Collections.sort(v);
-			int xyz[] = Conversion.convertNtoXYZ(v.get(0));
+			int xyz[] = Conversion.n2XYZ(v.get(0));
 			BlockType type = null;
 			if (v.get(0) + 1 == v.get(1) && v.get(0) + 2 == v.get(2)) {
 				if (v.get(1) == v.get(3) - 36) {

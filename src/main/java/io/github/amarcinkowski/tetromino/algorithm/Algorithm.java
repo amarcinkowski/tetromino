@@ -19,7 +19,6 @@ public class Algorithm {
 	private static Vector<Integer> vector = new Vector<Integer>();
 
 	private static int resultCount = 0;
-	private static int space = 0;
 	private static int factor = 0;
 
 	private final static int MAX_BLOCK = CubeVolume.VOLUME / Block.BLOCK_VOLUME;
@@ -49,8 +48,8 @@ public class Algorithm {
 
 	public static boolean branchNBound() {
 
-		while (!cubeVolume.isEmpty(space)) {
-			space++;
+		while (!cubeVolume.isEmpty(CubeVolume.cubeVolumePointer)) {
+			CubeVolume.cubeVolumePointer++;
 		}
 
 		factor = cubeVolume.factor();
@@ -72,19 +71,19 @@ public class Algorithm {
 	}
 
 	private static void insertNextPossibleBlock() {
-		vector = cubeVolume.possibileInsertsVector(space);
+		vector = cubeVolume.possibileInsertsVector(CubeVolume.cubeVolumePointer);
 		resultMaxTypes[cubeVolume.getBlockCount()] = vector.size();
 
 		Integer index = resultCurrentTypeCount[cubeVolume.getBlockCount()];
 		Integer r_type = vector.get(index);
 
-		int block[] = Block.getBlock(r_type, space);
+		int block[] = Block.getBlock(r_type, CubeVolume.cubeVolumePointer);
 
 		if (cubeVolume.insert(block)) {
 			logger.trace("INSERT");
 			resultCurrentType[cubeVolume.getBlockCount() - 1] = r_type;
 			resultCurrentTypeCount[cubeVolume.getBlockCount() - 1]++;
-			resultBlockStart[cubeVolume.getBlockCount() - 1] = space;
+			resultBlockStart[cubeVolume.getBlockCount() - 1] = CubeVolume.cubeVolumePointer;
 		}
 	}
 
@@ -94,7 +93,7 @@ public class Algorithm {
 		int r_space = resultBlockStart[cubeVolume.getBlockCount() - 1];
 		int block[] = Block.getBlock(r_type, r_space);
 		if (cubeVolume.remove(block)) {
-			space = r_space;
+			CubeVolume.cubeVolumePointer = r_space;
 			resultCurrentType[cubeVolume.getBlockCount()] = -1;
 			resultCurrentTypeCount[cubeVolume.getBlockCount() + 1] = 0;
 		}
@@ -102,7 +101,7 @@ public class Algorithm {
 	
 	private static void resetVolume() {
 		cubeVolume = new CubeVolume();
-		space = 0;
+		CubeVolume.cubeVolumePointer = 0;
 	}
 
 	private static void solutionFound() {
