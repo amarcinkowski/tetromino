@@ -34,9 +34,6 @@ public class Transformations3D {
 
 	private final static double[][] BLOCK_3D_VERTICES = { V000, V100, V200, V101 };
 
-	/** The c. */
-	private static double[][] a, b, c;
-
 	/** The Constant MAX_BLOCK_TYPE. */
 	public static final int MAX_BLOCK_TYPE = 32;
 
@@ -172,10 +169,12 @@ public class Transformations3D {
 	 *             the exception
 	 */
 	private static double[][] blockType(int type, int shift) throws Exception {
+		double[][] a, b, c;
 		double array[][] = null;
 		a = BLOCK_3D_VERTICES;
-		if (type < 1 && type > MAX_BLOCK_TYPE)
+		if (type < 1 && type > MAX_BLOCK_TYPE) {
 			throw new Exception("No such block type.");
+		}
 
 		switch (type) {
 		// UP

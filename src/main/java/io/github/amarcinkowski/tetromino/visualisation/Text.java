@@ -11,11 +11,11 @@ public class Text {
 
 	public static void printFilled(int[] filled) {
 		for (int z = 0; z < 2; z++) {
-			logger.info("\n== " + z + " ==");
+			System.out.println("\n== " + z + " ==");
 			for (int y = 0; y < 6; y++) {
-				logger.info("\n" + y + "\t");
+				System.out.print("\n" + y + "\t");
 				for (int x = 0; x < 6; x++) {
-					logger.info(String.format("%3s", filled[Conversion.xyz2N(x, y, z)]));
+					System.out.print(String.format("%3s", filled[Conversion.xyz2N(x, y, z)]));
 				}
 			}
 		}
