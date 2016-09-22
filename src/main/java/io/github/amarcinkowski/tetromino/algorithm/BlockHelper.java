@@ -9,7 +9,7 @@ public class BlockHelper {
 
 	public final static int BLOCK_VOLUME = 4;
 
-	public static Vector<int[]>[] cubeVector = BlockHelper
+	private static Vector<int[]>[] cubeVector = BlockHelper
 			.getAllPossibileBlocks();
 
 	public static int[] getBlock(int number, int space) {

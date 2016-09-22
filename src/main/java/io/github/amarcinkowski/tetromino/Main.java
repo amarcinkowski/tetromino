@@ -16,9 +16,6 @@ public class Main {
 	/** The start time. */
 	public static long startTime = System.currentTimeMillis();
 
-	/** The node count. */
-	private static int nodeCount = 0;
-
 	/**
 	 * The main method.
 	 *
@@ -26,11 +23,8 @@ public class Main {
 	 *            the arguments
 	 */
 	public static void main(String[] args) {
-		while (Algorithm.branchNBound()) {
-			nodeCount++;
-		}
-		logger.info(String.format("Node Count %d \nTIME %d sec", nodeCount,
-				(System.currentTimeMillis() - startTime) / 1000));
+		Algorithm.run();
+		logger.info(String.format("TIME %d sec", (System.currentTimeMillis() - startTime) / 1000));
 	}
 
 }

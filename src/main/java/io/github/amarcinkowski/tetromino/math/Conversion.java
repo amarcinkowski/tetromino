@@ -1,13 +1,6 @@
 package io.github.amarcinkowski.tetromino.math;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
 import org.apache.commons.math3.exception.NumberIsTooSmallException;
-
-import com.google.common.collect.ArrayListMultimap;
-import com.google.common.collect.Multimap;
 
 import io.github.amarcinkowski.tetromino.algorithm.Block;
 import io.github.amarcinkowski.tetromino.algorithm.BlockBuilder;
@@ -115,22 +108,6 @@ public class Conversion {
 		}
 		int xyz[] = Conversion.n2XYZ(n4[0]);
 		return new BlockBuilder().xyz(xyz).type(type).build();
-	}
-
-	public static List<Block> cvToBlockList(int n[]) {
-		List<Block> blocks = new ArrayList<>();
-		Multimap<Integer, Integer> map = ArrayListMultimap.create();
-		for (int i = 0; i < n.length; i++) {
-			map.put(n[i], i);
-		}
-		for (Integer key : map.keySet()) {
-			ArrayList<Integer> v = new ArrayList<>(map.get(key));
-			Collections.sort(v);
-			int n4[] = v.stream().mapToInt(Integer::intValue).toArray();
-			Block block = new BlockBuilder().n4(n4).build();
-			blocks.add(block);
-		}
-		return blocks;
 	}
 
 }

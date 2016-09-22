@@ -1,9 +1,15 @@
 package io.github.amarcinkowski.tetromino.algorithm;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Vector;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import com.google.common.collect.ArrayListMultimap;
+import com.google.common.collect.Multimap;
 
 import io.github.amarcinkowski.tetromino.math.Conversion;
 
@@ -17,14 +23,10 @@ public class CubeVolume {
 
 	public final static int VOLUME = SIZE_X * SIZE_Y * SIZE_Z;
 
-	/** CubeVolume inserted block count */
 	private int blockcount = 0;
-	private boolean empty[] = new boolean[VOLUME];
 	private int filled[] = new int[VOLUME];
 
-	int insertTries = 0;
 	private int possibilities[] = new int[VOLUME];
-	int removeTries = 0;
 
 	static int cubeVolumePointer = 0;
 
@@ -39,7 +41,7 @@ public class CubeVolume {
 	public int factor() {
 
 		for (int x = 0; x < VOLUME; x++) {
-			possibilities[x] = possibileInserts(x);
+			possibilities[x] = possibileInsertsCount(x);
 		}
 
 		int factor = 1;
@@ -55,10 +57,6 @@ public class CubeVolume {
 		return factor;
 	}
 
-	public int getBlockCount() {
-		return blockcount;
-	}
-
 	public int[] getFilled() {
 		return filled;
 	}
@@ -66,39 +64,32 @@ public class CubeVolume {
 	// int na byte
 	public boolean insert(int block[]) {
 
-		insertTries++;
 		if (!insertPossibile(block)) {
 			return false;
 		}
 
-		setBlockCount(getBlockCount() + 1);
+		blockcount++;
 		for (int i = 0; i < 4; i++) {
-			empty[block[i]] = false;
-			filled[block[i]] = getBlockCount();
+			filled[block[i]] = blockcount;
 		}
 		return true;
 	}
 
 	public boolean insertPossibile(int block[]) {
-		for (int i = 0; i < 4; i++)
-			if (!isEmpty(block[i]))
+		for (int i = 0; i < 4; i++) {
+			if (!isEmpty(block[i])) {
 				return false;
+			}
+		}
 		return true;
 	}
 
 	public boolean isEmpty(int n) {
 		int dim[] = Conversion.n2XYZ(n);
-		return isEmpty(dim[0], dim[1], dim[2]);
+		return exists(dim[0], dim[1], dim[2]) && filled[n] == 0;
 	}
 
-	public boolean isEmpty(int x, int y, int z) {
-		if (exists(x, y, z) && empty[Conversion.xyz2N(x, y, z)])
-			return true;
-		else
-			return false;
-	}
-
-	public byte possibileInserts(int space) {
+	public byte possibileInsertsCount(int space) {
 		byte count = 0;
 		Vector<int[]> v = BlockHelper.getAllPossibilities(space);
 		if (!isEmpty(space)) {
@@ -114,8 +105,9 @@ public class CubeVolume {
 
 	public Vector<Integer> possibileInsertsVector(int space) {
 		Vector<Integer> result = new Vector<Integer>();
-		if (!isEmpty(space))
+		if (!isEmpty(space)) {
 			return result;
+		}
 
 		Vector<int[]> v = BlockHelper.getAllPossibilities(space);
 		for (int i = 0; i < v.size(); i++) {
@@ -128,37 +120,58 @@ public class CubeVolume {
 
 	public boolean remove(int block[]) {
 
-		removeTries++;
-		if (!removePossibile(block))
+		if (!removePossibile(block)) {
 			return false;
+		}
 
-		setBlockCount(getBlockCount() - 1);
+		blockcount--;
 		for (int i = 0; i < 4; i++) {
-			empty[block[i]] = true;
 			filled[block[i]] = 0;
 		}
 		return true;
 	}
 
 	public boolean removePossibile(int block[]) {
-		for (int i = 0; i < 4; i++)
-			if (isEmpty(block[i]))
+		for (int i = 0; i < 4; i++) {
+			if (isEmpty(block[i])) {
 				return false;
+			}
+		}
 		return true;
 	}
 
-	public void setBlockCount(int blockcount) {
-		this.blockcount = blockcount;
+	public List<Block> getBlockList() {
+		List<Block> blocks = new ArrayList<>();
+		Multimap<Integer, Integer> map = ArrayListMultimap.create();
+		for (int i = 0; i < filled.length; i++) {
+			map.put(filled[i], i);
+		}
+		for (Integer key : map.keySet()) {
+			ArrayList<Integer> v = new ArrayList<>(map.get(key));
+			Collections.sort(v);
+			int n4[] = v.stream().mapToInt(Integer::intValue).toArray();
+			Block block = new BlockBuilder().n4(n4).build();
+			blocks.add(block);
+		}
+		return blocks;
+	}
+	
+	public int getBlockCount() {
+		return blockcount;
 	}
 
 	/** Creates a new instance of CubeVolume */
 	public CubeVolume() {
+		cubeVolumePointer = 0;
 		for (int x = 0; x < VOLUME; x++) {
-			empty[x] = true;
 			filled[x] = 0;
 		}
 		for (int x = 0; x < VOLUME; x++)
-			possibilities[x] = possibileInserts(x);
+			possibilities[x] = possibileInsertsCount(x);
+	}
+
+	public boolean isSolution() {
+		return blockcount == Algorithm.MAX_BLOCK;
 	}
 
 }
