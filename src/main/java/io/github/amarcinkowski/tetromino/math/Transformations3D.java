@@ -1,12 +1,3 @@
-/*
- * Transformations3D.java
- *
- * Created on 30 grudzie� 2007, 15:16
- *
- * To change this template, choose Tools | Template Manager
- * and open the template in the editor.
- */
-
 package io.github.amarcinkowski.tetromino.math;
 
 import org.apache.commons.math3.linear.MatrixUtils;
@@ -14,11 +5,6 @@ import org.apache.commons.math3.linear.RealMatrix;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-/**
- * The Class Transformations3D.
- * 
- * @author siatan
- */
 public class Transformations3D {
 
 	public static final double[] V101 = { 1.0, 0.0, 1.0, 1.0 };
@@ -29,23 +15,12 @@ public class Transformations3D {
 
 	public static final double[] V000 = { 0.0, 0.0, 0.0, 1.0 };
 
-	/** The logger. */
 	public static Logger logger = LoggerFactory.getLogger(Transformations3D.class);
 
 	private final static double[][] BLOCK_3D_VERTICES = { V000, V100, V200, V101 };
 
-	/** The Constant MAX_BLOCK_TYPE. */
 	public static final int MAX_BLOCK_TYPE = 32;
 
-	/**
-	 * Matrix multiply.
-	 * 
-	 * @param transformation
-	 *            the transformation
-	 * @param transformed
-	 *            the transformed
-	 * @return the double[][]
-	 */
 	private static double[][] matrixMultiply(double[][] transformation, double[][] transformed) {
 		double[][] arraysB = transformation;
 		double[][] arraysC = new double[4][4];
@@ -168,7 +143,7 @@ public class Transformations3D {
 	 * @throws Exception
 	 *             the exception
 	 */
-	private static double[][] blockType(int type, int shift) throws Exception {
+	public static double[][] blockType(int type, int shift) throws Exception {
 		double[][] a, b, c;
 		double array[][] = null;
 		a = BLOCK_3D_VERTICES;

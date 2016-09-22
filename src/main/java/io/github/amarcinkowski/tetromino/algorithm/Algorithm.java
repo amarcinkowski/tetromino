@@ -110,7 +110,7 @@ public class Algorithm {
 			logger.info(String.format("Result", resultCount));
 			Text.printFilled(cubeVolume.getFilled());
 
-			List<Block> blocks = Conversion.convertFilledToBlocks(cubeVolume.getFilled());
+			List<Block> blocks = Conversion.cvToBlockList(cubeVolume.getFilled());
 			SVG.create(blocks);
 
 			resetVolume();

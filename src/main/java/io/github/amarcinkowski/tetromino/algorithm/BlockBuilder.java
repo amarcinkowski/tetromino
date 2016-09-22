@@ -26,4 +26,8 @@ public class BlockBuilder {
 		block.screeny = screen_xy[1];
 		return block;
 	}
+
+	public BlockBuilder n4(int[] array) {
+		return null;
+	}
 }

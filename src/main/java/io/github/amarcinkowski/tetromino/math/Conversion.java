@@ -75,50 +75,50 @@ public class Conversion {
 		return xyz;
 	}
 
-	public static Block convertFilledToBlock(ArrayList<Integer> v) {
+	public static Block n2Block(int[] n) {
 		BlockType type = null;
-		if (v.get(0) + 1 == v.get(1) && v.get(0) + 2 == v.get(2)) {
-			if (v.get(1) == v.get(3) - 36) {
+		if (n[0] + 1 == n[1] && n[0] + 2 == n[2]) {
+			if (n[1] == n[3] - 36) {
 				type = BlockType.HORIZONTAL_UP;
 			}
-			if (v.get(1) == v.get(3) - 6) {
+			if (n[1] == n[3] - 6) {
 				type = BlockType.HORIZONTAL_SOUTH;
 			}
 		}
-		if ((v.get(1) + 1 == v.get(2) && v.get(1) + 2 == v.get(3))) {
-			if (v.get(0) == v.get(2) - 36) {
+		if ((n[1] + 1 == n[2] && n[1] + 2 == n[3])) {
+			if (n[0] == n[2] - 36) {
 				type = BlockType.HORIZONTAL_DOWN;
 			}
-			if (v.get(0) == v.get(2) - 6) {
+			if (n[0] == n[2] - 6) {
 				type = BlockType.HORIZONTAL_NORTH;
 			}
 		}
-		if (v.get(0) + 6 == v.get(1) && v.get(0) + 12 == v.get(2)) {
-			if (v.get(1) == v.get(3) - 36) {
+		if (n[0] + 6 == n[1] && n[0] + 12 == n[2]) {
+			if (n[1] == n[3] - 36) {
 				type = BlockType.VERTICAL_UP;
 			}
 		}
-		if (v.get(1) + 6 == v.get(2) && v.get(1) + 12 == v.get(3)) {
-			if (v.get(0) == v.get(2) - 36) {
+		if (n[1] + 6 == n[2] && n[1] + 12 == n[3]) {
+			if (n[0] == n[2] - 36) {
 				type = BlockType.VERTICAL_DOWN;
 			}
 		}
-		if (v.get(0) + 6 == v.get(2) && v.get(0) + 12 == v.get(3)) {
-			if (v.get(1) == v.get(2) - 1) {
+		if (n[0] + 6 == n[2] && n[0] + 12 == n[3]) {
+			if (n[1] == n[2] - 1) {
 				type = BlockType.VERTICAL_WEST;
 			}
 		}
-		if (v.get(0) + 6 == v.get(1) && v.get(0) + 12 == v.get(3)) {
-			if (v.get(1) == v.get(2) - 1) {
+		if (n[0] + 6 == n[1] && n[0] + 12 == n[3]) {
+			if (n[1] == n[2] - 1) {
 				type = BlockType.VERTICAL_EAST;
 			}
 		}
-		int xyz[] = Conversion.n2XYZ(v.get(0));
+		int xyz[] = Conversion.n2XYZ(n[0]);
 		return new BlockBuilder().xyz(xyz).type(type).build();
 	}
 
-	public static List<Block> convertFilledToBlocks(int n[]) {
-		List<Block> xyztBlocks = new ArrayList<>();
+	public static List<Block> cvToBlockList(int n[]) {
+		List<Block> blocks = new ArrayList<>();
 		Multimap<Integer, Integer> map = ArrayListMultimap.create();
 		for (int i = 0; i < n.length; i++) {
 			map.put(n[i], i);
@@ -126,9 +126,12 @@ public class Conversion {
 		for (Integer key : map.keySet()) {
 			ArrayList<Integer> v = new ArrayList<>(map.get(key));
 			Collections.sort(v);
-			xyztBlocks.add(convertFilledToBlock(v));
+			// XXX TODO xXXXXXX XXX n4
+//			Block block = new BlockBuilder().n4(v.toArray()).build();
+			int n4[] = v.stream().mapToInt(Integer::intValue).toArray();
+			blocks.add(n2Block(n4));
 		}
-		return xyztBlocks;
+		return blocks;
 	}
 
 }
