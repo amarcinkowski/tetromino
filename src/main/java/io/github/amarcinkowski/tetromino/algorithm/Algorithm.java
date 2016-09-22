@@ -16,12 +16,10 @@ public class Algorithm {
 
 	private static CubeVolume cubeVolume = new CubeVolume();
 
-	private static Vector<Integer> vector = new Vector<Integer>();
-
 	private static int resultCount = 0;
 	private static int factor = 0;
 
-	private final static int MAX_BLOCK = CubeVolume.VOLUME / Block.BLOCK_VOLUME;
+	private final static int MAX_BLOCK = CubeVolume.VOLUME / BlockHelper.BLOCK_VOLUME;
 
 	/**
 	 * np. [1,14,18] 0 > rCT > 32
@@ -66,18 +64,19 @@ public class Algorithm {
 		}
 
 		solutionFound();
-		
+
 		return true;
 	}
 
 	private static void insertNextPossibleBlock() {
+		Vector<Integer> vector = new Vector<Integer>();
 		vector = cubeVolume.possibileInsertsVector(CubeVolume.cubeVolumePointer);
 		resultMaxTypes[cubeVolume.getBlockCount()] = vector.size();
 
 		Integer index = resultCurrentTypeCount[cubeVolume.getBlockCount()];
 		Integer r_type = vector.get(index);
 
-		int block[] = Block.getBlock(r_type, CubeVolume.cubeVolumePointer);
+		int block[] = BlockHelper.getBlock(r_type, CubeVolume.cubeVolumePointer);
 
 		if (cubeVolume.insert(block)) {
 			logger.trace("INSERT");
@@ -91,14 +90,14 @@ public class Algorithm {
 		logger.trace("REMOVE");
 		int r_type = resultCurrentType[cubeVolume.getBlockCount() - 1];
 		int r_space = resultBlockStart[cubeVolume.getBlockCount() - 1];
-		int block[] = Block.getBlock(r_type, r_space);
+		int block[] = BlockHelper.getBlock(r_type, r_space);
 		if (cubeVolume.remove(block)) {
 			CubeVolume.cubeVolumePointer = r_space;
 			resultCurrentType[cubeVolume.getBlockCount()] = -1;
 			resultCurrentTypeCount[cubeVolume.getBlockCount() + 1] = 0;
 		}
 	}
-	
+
 	private static void resetVolume() {
 		cubeVolume = new CubeVolume();
 		CubeVolume.cubeVolumePointer = 0;
@@ -110,10 +109,10 @@ public class Algorithm {
 
 			logger.info(String.format("Result", resultCount));
 			Text.printFilled(cubeVolume.getFilled());
-			
-			List<XYZTBlock> blocks = Conversion.convertFilledToBlocks(cubeVolume.getFilled());
+
+			List<Block> blocks = Conversion.convertFilledToBlocks(cubeVolume.getFilled());
 			SVG.create(blocks);
-			
+
 			resetVolume();
 
 			// PO UZYSKANIU WYNIKU COFNIJ SIE DO OSTATNIEJ GALEZI Z DWOMA LISCMI
@@ -125,11 +124,12 @@ public class Algorithm {
 				} else {
 					break;
 				}
+			Vector<Integer> vector = new Vector<Integer>();
 			for (int j = 0; j < i; j++) {
 				vector = cubeVolume.possibileInsertsVector(resultBlockStart[j]);
 				int index = resultCurrentTypeCount[cubeVolume.getBlockCount()];
 				int r_type = vector.get(index - 1);
-				cubeVolume.insert(Block.getBlock(r_type, resultBlockStart[j]));
+				cubeVolume.insert(BlockHelper.getBlock(r_type, resultBlockStart[j]));
 
 			}
 		}

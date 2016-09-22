@@ -1,25 +1,51 @@
 package io.github.amarcinkowski.tetromino.algorithm;
 
-import java.util.Vector;
-
 public class Block {
+	protected int x, y, z;
+	protected BlockType type;
+	protected double screenx, screeny;
 
-	public final static int BLOCK_VOLUME = 4;
-
-	public static Vector<int[]>[] cubeVector = CubeVolume
-			.getAllPossibileBlocks();
-
-	public static int[] getBlock(int number, int space) {
-		return cubeVector[space].get(number);
+	public int getX() {
+		return x;
 	}
 
-	public static Vector<int[]> getAllPossibilities(int space) {
-		return cubeVector[space];
+	public void setX(int x) {
+		this.x = x;
 	}
 
-	public static int getPossibilitiesCount(int space) {
-		return (int) cubeVector[space].size();
+	public int getY() {
+		return y;
 	}
 
+	public void setY(int y) {
+		this.y = y;
+	}
+
+	public BlockType getType() {
+		return type;
+	}
+
+	public void setType(BlockType type) {
+		this.type = type;
+	}
+
+	public double getScreenx() {
+		return screenx;
+	}
+
+	public void setScreenx(double screenx) {
+		this.screenx = screenx;
+	}
+
+	public double getScreeny() {
+		return screeny;
+	}
+
+	public void setScreeny(double screeny) {
+		this.screeny = screeny;
+	}
+
+	protected Block() {
+	}
 
 }

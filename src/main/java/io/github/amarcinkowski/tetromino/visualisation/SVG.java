@@ -10,11 +10,11 @@ import de.neuland.jade4j.JadeConfiguration;
 import de.neuland.jade4j.exceptions.JadeException;
 import de.neuland.jade4j.template.JadeTemplate;
 import io.github.amarcinkowski.tetromino.algorithm.BlockType;
-import io.github.amarcinkowski.tetromino.algorithm.XYZTBlock;
+import io.github.amarcinkowski.tetromino.algorithm.Block;
 
 public class SVG {
 
-	public static void create(List<XYZTBlock> blocks) {
+	public static void create(List<Block> blocks) {
 		JadeConfiguration configuration = new JadeConfiguration();
 		configuration.setMode(Jade4J.Mode.XHTML);
 		configuration.setPrettyPrint(true);

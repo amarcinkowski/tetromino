@@ -1,10 +1,9 @@
 package io.github.amarcinkowski.tetromino.math;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertEquals;
 
 import org.apache.commons.math3.exception.NumberIsTooSmallException;
-
-import io.github.amarcinkowski.tetromino.algorithm.Block;
 
 public class ConversionTest {
 

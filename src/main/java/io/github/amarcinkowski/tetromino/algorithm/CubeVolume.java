@@ -102,7 +102,7 @@ public class CubeVolume {
 
 	public byte possibileInserts(int space) {
 		byte count = 0;
-		Vector<int[]> v = Block.getAllPossibilities(space);
+		Vector<int[]> v = BlockHelper.getAllPossibilities(space);
 		if (!isEmpty(space)) {
 			return -1;
 		}
@@ -119,7 +119,7 @@ public class CubeVolume {
 		if (!isEmpty(space))
 			return result;
 
-		Vector<int[]> v = Block.getAllPossibilities(space);
+		Vector<int[]> v = BlockHelper.getAllPossibilities(space);
 		for (int i = 0; i < v.size(); i++) {
 			int block[] = v.get(i);
 			if (insertPossibile(block))

@@ -1,22 +1,18 @@
 package io.github.amarcinkowski.tetromino.math;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Vector;
 
 import org.apache.commons.math3.exception.NumberIsTooSmallException;
 
 import com.google.common.collect.ArrayListMultimap;
-import com.google.common.collect.ListMultimap;
 import com.google.common.collect.Multimap;
-import com.google.common.collect.Multimaps;
 
+import io.github.amarcinkowski.tetromino.algorithm.Block;
+import io.github.amarcinkowski.tetromino.algorithm.BlockBuilder;
 import io.github.amarcinkowski.tetromino.algorithm.BlockType;
 import io.github.amarcinkowski.tetromino.algorithm.CubeVolume;
-import io.github.amarcinkowski.tetromino.algorithm.XYZTBlock;
 
 public class Conversion {
 
@@ -54,10 +50,11 @@ public class Conversion {
 	 * @return the int
 	 */
 	public static int xyz2N(int x, int y, int z) {
-		if (CubeVolume.exists(x, y, z))
+		if (CubeVolume.exists(x, y, z)) {
 			return x + y * CubeVolume.SIZE_X + z * CubeVolume.SIZE_X * CubeVolume.SIZE_Y;
-		else
+		} else {
 			return -1;
+		}
 	}
 
 	/**
@@ -78,58 +75,58 @@ public class Conversion {
 		return xyz;
 	}
 
-	private static XYZTBlock convertN2XYZTBlock(int n) {
-		return null;
+	public static Block convertFilledToBlock(ArrayList<Integer> v) {
+		BlockType type = null;
+		if (v.get(0) + 1 == v.get(1) && v.get(0) + 2 == v.get(2)) {
+			if (v.get(1) == v.get(3) - 36) {
+				type = BlockType.HORIZONTAL_UP;
+			}
+			if (v.get(1) == v.get(3) - 6) {
+				type = BlockType.HORIZONTAL_SOUTH;
+			}
+		}
+		if ((v.get(1) + 1 == v.get(2) && v.get(1) + 2 == v.get(3))) {
+			if (v.get(0) == v.get(2) - 36) {
+				type = BlockType.HORIZONTAL_DOWN;
+			}
+			if (v.get(0) == v.get(2) - 6) {
+				type = BlockType.HORIZONTAL_NORTH;
+			}
+		}
+		if (v.get(0) + 6 == v.get(1) && v.get(0) + 12 == v.get(2)) {
+			if (v.get(1) == v.get(3) - 36) {
+				type = BlockType.VERTICAL_UP;
+			}
+		}
+		if (v.get(1) + 6 == v.get(2) && v.get(1) + 12 == v.get(3)) {
+			if (v.get(0) == v.get(2) - 36) {
+				type = BlockType.VERTICAL_DOWN;
+			}
+		}
+		if (v.get(0) + 6 == v.get(2) && v.get(0) + 12 == v.get(3)) {
+			if (v.get(1) == v.get(2) - 1) {
+				type = BlockType.VERTICAL_WEST;
+			}
+		}
+		if (v.get(0) + 6 == v.get(1) && v.get(0) + 12 == v.get(3)) {
+			if (v.get(1) == v.get(2) - 1) {
+				type = BlockType.VERTICAL_EAST;
+			}
+		}
+		int xyz[] = Conversion.n2XYZ(v.get(0));
+		return new BlockBuilder().xyz(xyz).type(type).build();
 	}
 
-	public static List<XYZTBlock> convertFilledToBlocks(int n[]) {
+	public static List<Block> convertFilledToBlocks(int n[]) {
+		List<Block> xyztBlocks = new ArrayList<>();
 		Multimap<Integer, Integer> map = ArrayListMultimap.create();
-		List<XYZTBlock> xyztBlocks = new ArrayList<>();
 		for (int i = 0; i < n.length; i++) {
 			map.put(n[i], i);
 		}
 		for (Integer key : map.keySet()) {
 			ArrayList<Integer> v = new ArrayList<>(map.get(key));
 			Collections.sort(v);
-			int xyz[] = Conversion.n2XYZ(v.get(0));
-			BlockType type = null;
-			if (v.get(0) + 1 == v.get(1) && v.get(0) + 2 == v.get(2)) {
-				if (v.get(1) == v.get(3) - 36) {
-					type = BlockType.HORIZONTAL_UP;
-				}
-				if (v.get(1) == v.get(3) - 6) {
-					type = BlockType.HORIZONTAL_SOUTH;
-				}
-			}
-			if ((v.get(1) + 1 == v.get(2) && v.get(1) + 2 == v.get(3))) {
-				if (v.get(0) == v.get(2) - 36) {
-					type = BlockType.HORIZONTAL_DOWN;
-				}
-				if (v.get(0) == v.get(2) - 6) {
-					type = BlockType.HORIZONTAL_NORTH;
-				}
-			}
-			if (v.get(0) + 6 == v.get(1) && v.get(0) + 12 == v.get(2)) {
-				if (v.get(1) == v.get(3) - 36) {
-					type = BlockType.VERTICAL_UP;
-				}
-			}
-			if (v.get(1) + 6 == v.get(2) && v.get(1) + 12 == v.get(3)) {
-				if (v.get(0) == v.get(2) - 36) {
-					type = BlockType.VERTICAL_DOWN;
-				}
-			}
-			if (v.get(0) + 6 == v.get(2) && v.get(0) + 12 == v.get(3)) {
-				if (v.get(1) == v.get(2) - 1) {
-					type = BlockType.VERTICAL_WEST;
-				}
-			}
-			if (v.get(0) + 6 == v.get(1) && v.get(0) + 12 == v.get(3)) {
-				if (v.get(1) == v.get(2) - 1) {
-					type = BlockType.VERTICAL_EAST;
-				}
-			}
-			xyztBlocks.add(new XYZTBlock(xyz, type));
+			xyztBlocks.add(convertFilledToBlock(v));
 		}
 		return xyztBlocks;
 	}
