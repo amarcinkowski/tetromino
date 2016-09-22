@@ -40,23 +40,14 @@ public class CubeVolume {
 		}
 	}
 
-	public int factor() {
+	public boolean hasEmptySpaceThatCannotBeFilledWithABlock() {
 
 		for (int x = 0; x < VOLUME; x++) {
-			possibilities[x] = possibileInsertsCount(x);
-		}
-
-		int factor = 1;
-		for (int i = 0; i < VOLUME; i++) {
-			if (isEmpty(i)) {
-				factor += possibilities[i];
-				if (possibilities[i] == 0) {
-					return 0;
-				}
+			if (isEmpty(x) && possibileInsertsCount(x) == 0) {
+				return true;
 			}
-			logger.trace(String.format("factor (%d/%d)=%d", i, VOLUME, factor));
 		}
-		return factor;
+		return false;
 	}
 
 	public int[] getFilled() {
@@ -158,7 +149,7 @@ public class CubeVolume {
 		}
 		return blocks;
 	}
-	
+
 	public int getBlockCount() {
 		return blockcount;
 	}
@@ -175,6 +166,12 @@ public class CubeVolume {
 
 	public boolean isSolution() {
 		return blockcount == CubeVolume.MAX_BLOCK;
+	}
+
+	public void findNextEmptySpace() {
+		while (!isEmpty(cubeVolumePointer)) {
+			cubeVolumePointer++;
+		}
 	}
 
 }

@@ -15,8 +15,6 @@ public class Algorithm {
 
 	private static CubeVolume cubeVolume = new CubeVolume();
 
-	private static int factor = 0;
-
 	/**
 	 * np. [1,14,18] 0 > rCT > 32
 	 */
@@ -42,18 +40,20 @@ public class Algorithm {
 
 	public static boolean step() {
 
-		while (!cubeVolume.isEmpty(CubeVolume.cubeVolumePointer)) {
-			CubeVolume.cubeVolumePointer++;
+		cubeVolume.findNextEmptySpace();
+
+		boolean failureEmptySpace = cubeVolume.hasEmptySpaceThatCannotBeFilledWithABlock();
+		int blockcount = cubeVolume.getBlockCount();
+		boolean noMorePossibleInserts = noMorePossibleInsertsInThisBranch(blockcount);
+		
+		if (noMorePossibleInserts) {
+			if (blockcount == 0) {
+				logger.info("All solutions found");
+				return false;
+			}
 		}
 
-		factor = cubeVolume.factor();
-
-		if (allSolutionsFound()) {
-			logger.info("All solutions found");
-			return false;
-		}
-
-		if (factor == 0) {
+		if (noMorePossibleInserts || failureEmptySpace) {
 			removeLastInsertedBlock();
 		} else {
 			insertNextPossibleBlock();
@@ -63,16 +63,8 @@ public class Algorithm {
 		return true;
 	}
 
-	private static boolean allSolutionsFound() {
-		if (resultCurrentTypeCount[cubeVolume.getBlockCount()] == resultMaxTypes[cubeVolume.getBlockCount()]
-				&& resultCurrentType[cubeVolume.getBlockCount()] == -1) {
-			factor = 0;
-			if (cubeVolume.getBlockCount() == 0) {
-				return true;
-			}
-
-		}
-		return false;
+	private static boolean noMorePossibleInsertsInThisBranch(int blockcount) {
+		return resultCurrentTypeCount[blockcount] == resultMaxTypes[blockcount] && resultCurrentType[blockcount] == -1;
 	}
 
 	private static void insertNextPossibleBlock() {

@@ -27,7 +27,6 @@ public class SVG {
 			model.put("blockTypes", BlockType.values());
 
 			String s = configuration.renderTemplate(template, model);
-			System.out.println(s);
 			FileHelper.string2File(s);
 		} catch (JadeException | IOException e1) {
 			e1.printStackTrace();
