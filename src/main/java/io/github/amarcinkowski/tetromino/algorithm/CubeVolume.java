@@ -28,6 +28,8 @@ public class CubeVolume {
 
 	private int possibilities[] = new int[VOLUME];
 
+	public final static int MAX_BLOCK = VOLUME / BlockHelper.BLOCK_VOLUME;
+
 	static int cubeVolumePointer = 0;
 
 	public static boolean exists(int x, int y, int z) {
@@ -112,8 +114,9 @@ public class CubeVolume {
 		Vector<int[]> v = BlockHelper.getAllPossibilities(space);
 		for (int i = 0; i < v.size(); i++) {
 			int block[] = v.get(i);
-			if (insertPossibile(block))
+			if (insertPossibile(block)) {
 				result.add(i);
+			}
 		}
 		return result;
 	}
@@ -171,7 +174,7 @@ public class CubeVolume {
 	}
 
 	public boolean isSolution() {
-		return blockcount == Algorithm.MAX_BLOCK;
+		return blockcount == CubeVolume.MAX_BLOCK;
 	}
 
 }

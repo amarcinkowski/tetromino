@@ -15,27 +15,24 @@ public class Algorithm {
 
 	private static CubeVolume cubeVolume = new CubeVolume();
 
-	private static int resultCount = 0;
 	private static int factor = 0;
-
-	public final static int MAX_BLOCK = CubeVolume.VOLUME / BlockHelper.BLOCK_VOLUME;
 
 	/**
 	 * np. [1,14,18] 0 > rCT > 32
 	 */
-	public static int resultCurrentType[] = new int[MAX_BLOCK];
+	public static int resultCurrentType[] = new int[CubeVolume.MAX_BLOCK];
 	/**
 	 * np. [1,3,3] 0 > rCTC > possibilities(space)
 	 */
-	public static int resultCurrentTypeCount[] = new int[MAX_BLOCK];
+	public static int resultCurrentTypeCount[] = new int[CubeVolume.MAX_BLOCK];
 	/**
 	 * np. [4,3,5] rMT = possib(space)
 	 */
-	public static int resultMaxTypes[] = new int[MAX_BLOCK];
+	public static int resultMaxTypes[] = new int[CubeVolume.MAX_BLOCK];
 	/**
 	 * np. [1,5,8] 3 block, starts in 1, 5, and 8 of CV
 	 */
-	public static int resultBlockStart[] = new int[MAX_BLOCK];
+	public static int resultBlockStart[] = new int[CubeVolume.MAX_BLOCK];
 
 	public static void run() {
 		while (Algorithm.step()) {
@@ -79,8 +76,7 @@ public class Algorithm {
 	}
 
 	private static void insertNextPossibleBlock() {
-		Vector<Integer> vector = new Vector<Integer>();
-		vector = cubeVolume.possibileInsertsVector(CubeVolume.cubeVolumePointer);
+		Vector<Integer> vector = cubeVolume.possibileInsertsVector(CubeVolume.cubeVolumePointer);
 		resultMaxTypes[cubeVolume.getBlockCount()] = vector.size();
 
 		Integer index = resultCurrentTypeCount[cubeVolume.getBlockCount()];
@@ -110,7 +106,7 @@ public class Algorithm {
 
 	private static void solutionFound() {
 		if (cubeVolume.isSolution()) {
-			logger.info(String.format("Found %d result", ++resultCount));
+			logger.info("Found result");
 
 			Text.printFilled(cubeVolume.getFilled());
 
@@ -125,7 +121,7 @@ public class Algorithm {
 		cubeVolume = new CubeVolume();
 
 		int i;
-		for (i = MAX_BLOCK - 1; i > 0; i--)
+		for (i = CubeVolume.MAX_BLOCK - 1; i > 0; i--)
 			if (resultCurrentTypeCount[i] == resultMaxTypes[i]) {
 				resultCurrentType[i] = -1;
 			} else {
