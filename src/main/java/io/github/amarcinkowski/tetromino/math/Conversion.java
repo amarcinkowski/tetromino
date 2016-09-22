@@ -1,6 +1,7 @@
 package io.github.amarcinkowski.tetromino.math;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -8,13 +9,16 @@ import java.util.Vector;
 
 import org.apache.commons.math3.exception.NumberIsTooSmallException;
 
+import com.google.common.collect.ArrayListMultimap;
+import com.google.common.collect.ListMultimap;
+import com.google.common.collect.Multimap;
+import com.google.common.collect.Multimaps;
+
 import io.github.amarcinkowski.tetromino.algorithm.BlockType;
 import io.github.amarcinkowski.tetromino.algorithm.CubeVolume;
 import io.github.amarcinkowski.tetromino.algorithm.XYZTBlock;
 
 public class Conversion {
-
-	private static HashMap<Integer, Vector<Integer>> map;
 
 	/**
 	 * Convert xyz to n.
@@ -51,8 +55,7 @@ public class Conversion {
 	 */
 	public static int xyz2N(int x, int y, int z) {
 		if (CubeVolume.exists(x, y, z))
-			return x + y * CubeVolume.SIZE_X + z * CubeVolume.SIZE_X
-					* CubeVolume.SIZE_Y;
+			return x + y * CubeVolume.SIZE_X + z * CubeVolume.SIZE_X * CubeVolume.SIZE_Y;
 		else
 			return -1;
 	}
@@ -70,29 +73,23 @@ public class Conversion {
 		}
 		int xyz[] = new int[3];
 		xyz[0] = number % CubeVolume.SIZE_X;
-		xyz[1] = number % (CubeVolume.SIZE_X * CubeVolume.SIZE_Y)
-				/ CubeVolume.SIZE_X;
+		xyz[1] = number % (CubeVolume.SIZE_X * CubeVolume.SIZE_Y) / CubeVolume.SIZE_X;
 		xyz[2] = number / (CubeVolume.SIZE_X * CubeVolume.SIZE_Y);
 		return xyz;
 	}
 
-	private static void addToMap(int index, int blockNumber) {
-		Vector<Integer> v = map.get(index);
-		if (v == null) {
-			v = new Vector<Integer>();
-		}
-		v.add(blockNumber);
-		map.put(index, v);
+	private static XYZTBlock convertN2XYZTBlock(int n) {
+		return null;
 	}
-	
+
 	public static List<XYZTBlock> convertFilledToBlocks(int n[]) {
-		List<XYZTBlock> xyztBlocks = new ArrayList<>(); 
-		map = new HashMap<Integer, Vector<Integer>>();
+		Multimap<Integer, Integer> map = ArrayListMultimap.create();
+		List<XYZTBlock> xyztBlocks = new ArrayList<>();
 		for (int i = 0; i < n.length; i++) {
-			addToMap(n[i], i);
+			map.put(n[i], i);
 		}
 		for (Integer key : map.keySet()) {
-			Vector<Integer> v = map.get(key);
+			ArrayList<Integer> v = new ArrayList<>(map.get(key));
 			Collections.sort(v);
 			int xyz[] = Conversion.n2XYZ(v.get(0));
 			BlockType type = null;
@@ -136,6 +133,5 @@ public class Conversion {
 		}
 		return xyztBlocks;
 	}
-	
-	
+
 }
