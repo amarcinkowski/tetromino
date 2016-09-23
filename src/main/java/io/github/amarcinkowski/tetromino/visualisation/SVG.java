@@ -9,9 +9,9 @@ import de.neuland.jade4j.Jade4J;
 import de.neuland.jade4j.JadeConfiguration;
 import de.neuland.jade4j.exceptions.JadeException;
 import de.neuland.jade4j.template.JadeTemplate;
+import io.github.amarcinkowski.tetromino.algorithm.Block;
 import io.github.amarcinkowski.tetromino.algorithm.BlockType;
 import io.github.amarcinkowski.tetromino.algorithm.CubeVolume;
-import io.github.amarcinkowski.tetromino.algorithm.Block;
 
 public class SVG {
 
@@ -24,6 +24,7 @@ public class SVG {
 
 		Map<String, Object> model = new HashMap<String, Object>();
 		model.put("pageName", "tetromino");
+		model.put("defs", FileHelper.readAll2String("src/main/resources", "svg"));
 		model.put("blocks", blocks);
 		model.put("blockTypes", BlockType.values());
 

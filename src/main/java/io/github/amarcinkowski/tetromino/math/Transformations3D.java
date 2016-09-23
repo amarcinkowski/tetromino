@@ -37,6 +37,15 @@ public class Transformations3D {
 		return arraysC;
 	}
 
+	private static double[][] normalize(double[][] array) {
+		for (int i = 0; i < array.length; i++) {
+			for (int j = 0; j < array[i].length; j++) {
+				array[i][j] = Math.round(array[i][j] * 1000) / 1000;
+			}
+		}
+		return array;
+	}
+
 	/**
 	 * translate block by x,y,z dimension[0],dimension[1], dimension[2].
 	 * 
@@ -85,27 +94,28 @@ public class Transformations3D {
 	 * @return the double[][]
 	 */
 	public static double[][] rotate(char q, int x90, double[][] rotated) {
-		double[][] array = null;
+		double[][] rotationMatrix = getRotationMatrix(q, x90);
+		double[][] array = matrixMultiply(rotationMatrix, rotated);
+		return normalize(array);
+	}
+
+	private static double[][] getRotationMatrix(char q, int x90) {
 		double alfa = Math.PI / 2 * x90;
 		switch (q) {
 		case 'x': // Rot X
 			double[][] rotx = { { 1.0, 0.0, 0.0, 0.0 }, { 0.0, Math.cos(alfa), -Math.sin(alfa), 0.0 },
 					{ 0.0, Math.sin(alfa), Math.cos(alfa), 0.0 }, V000 };
-			array = matrixMultiply(rotx, rotated);
-			break;
-		case 'y':
-			// Rot Y
+			return rotx;
+		case 'y': // Rot Y
 			double[][] roty = { { Math.cos(alfa), 0.0, Math.sin(alfa), 0.0 }, { 0.0, 1.0, 0.0, 0.0 },
 					{ -Math.sin(alfa), 0.0, Math.cos(alfa), 0.0 }, V000 };
-			array = matrixMultiply(roty, rotated);
-			break;
-		case 'z':
-			// Rot Z
+			return roty;
+		case 'z': // Rot Z
 			double[][] rotz = { { Math.cos(alfa), -Math.sin(alfa), 0.0, 0.0 },
 					{ Math.sin(alfa), Math.cos(alfa), 0.0, 0.0 }, { 0.0, 0.0, 1.0, 0.0 }, V000 };
-			array = matrixMultiply(rotz, rotated);
-			break;
+			return rotz;
 		}
-		return array;
+		return null;
 	}
+
 }

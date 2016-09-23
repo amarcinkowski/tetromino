@@ -50,24 +50,25 @@ public class BlockHelper {
 	 * @throws Exception
 	 *             the exception
 	 */
-	private static double[][] blockType(int type, int shift) throws Exception {
+
+	private static double[][] type2Vector(int type) {
 		double[][] a, b, c;
 		double array[][] = null;
 		a = Transformations3D.BLOCK_3D_VERTICES;
-		if (type < 1 && type > BlockHelper.MAX_BLOCK_TYPE) {
-			throw new Exception("No such block type.");
-		}
 
+		boolean less = false;
 		switch (type) {
 		// UP
-		case 1:
+		case 1: // 0001.svg
 			array = Transformations3D.translate(0, 0, 0, a);
 			break; // 0,1,2,37
-		case 2:
+		case 2: // --
 			array = Transformations3D.translate(-1, 0, 0, a);
+			if (less) {array = Transformations3D.translate(-100, -100, -100, a);}
 			break;
-		case 3:
+		case 3: // --
 			array = Transformations3D.translate(-2, 0, 0, a);
+			if (less) {array = Transformations3D.translate(-100, -100, -100, a);}
 			break;
 		case 4:
 			b = Transformations3D.rotate('z', -1, a);
@@ -202,6 +203,16 @@ public class BlockHelper {
 			array = Transformations3D.translate(-1, -1, 0, b);
 			break;
 		}
+		return array;
+	}
+
+	private static double[][] typeShift2Vector(int type, int shift) throws Exception {
+
+		if (type < 1 && type > BlockHelper.MAX_BLOCK_TYPE) {
+			throw new Exception("No such block type.");
+		}
+
+		double[][] array = type2Vector(type);
 		array = Transformations3D.translate(BlockConverter.n2XYZ(shift), array);
 		return array;
 	}
@@ -218,7 +229,7 @@ public class BlockHelper {
 	private static int[] block(int type, int shift) {
 		double[][] array = null;
 		try {
-			array = blockType(type, shift);
+			array = typeShift2Vector(type, shift);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -240,6 +251,5 @@ public class BlockHelper {
 		}
 		return true;
 	}
-
 
 }

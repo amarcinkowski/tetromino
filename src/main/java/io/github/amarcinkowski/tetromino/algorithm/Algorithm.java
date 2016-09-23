@@ -1,21 +1,15 @@
 package io.github.amarcinkowski.tetromino.algorithm;
 
-import java.io.IOException;
 import java.util.Vector;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import de.neuland.jade4j.exceptions.JadeException;
-import io.github.amarcinkowski.tetromino.visualisation.FileHelper;
-import io.github.amarcinkowski.tetromino.visualisation.SVG;
-import io.github.amarcinkowski.tetromino.visualisation.Text;
-
 public class Algorithm {
 
 	private static Logger logger = LoggerFactory.getLogger(Algorithm.class);
 
-	private CubeVolume cubeVolume = new CubeVolume();
+	private CubeVolume cubeVolume = new CubeVolumeBuilder().empty().build();
 
 	private Vector<CubeVolume> solutions = new Vector<>();
 
@@ -36,28 +30,21 @@ public class Algorithm {
 	 */
 	public int resultBlockStart[] = new int[CubeVolume.MAX_BLOCK];
 
-	public void run() {
+	public Vector<CubeVolume> run() {
 		while (hasMoreSteps()) {
 		}
-		for (CubeVolume cubeVolume : solutions) {
-			saveToFile(cubeVolume);
-		}
+		return solutions;
 	}
 
 	public boolean hasMoreSteps() {
 
 		cubeVolume.findNextEmptySpace();
-
-		int blockcount = cubeVolume.getBlockCount();
-
 		boolean irregularEmptySpace = cubeVolume.hasEmptySpaceThatCannotBeFilledWithABlock();
-		boolean noMorePossibleInserts = noMorePossibleInsertsInThisBranch(blockcount);
+		boolean noMorePossibleInserts = noMorePossibleInsertsInThisBranch(cubeVolume.getBlockCount());
 
-		if (noMorePossibleInserts) {
-			if (blockcount == 0) {
-				logger.info("All solutions found");
-				return false;
-			}
+		if (noMorePossibleInserts && cubeVolume.isEmpty()) {
+			logger.info("All solutions found");
+			return false;
 		}
 
 		if (noMorePossibleInserts || irregularEmptySpace) {
@@ -75,7 +62,7 @@ public class Algorithm {
 	}
 
 	private void insertNextPossibleBlock() {
-		Vector<Integer> vector = cubeVolume.possibileInsertsVector(cubeVolume.cubeVolumePointer);
+		Vector<Integer> vector = cubeVolume.possibileInserts(cubeVolume.cubeVolumePointer);
 		resultMaxTypes[cubeVolume.getBlockCount()] = vector.size();
 
 		Integer index = resultCurrentTypeCount[cubeVolume.getBlockCount()];
@@ -84,7 +71,6 @@ public class Algorithm {
 		int block[] = BlockHelper.getBlock(r_type, cubeVolume.cubeVolumePointer);
 
 		if (cubeVolume.insert(block)) {
-			logger.trace("INSERT");
 			resultCurrentType[cubeVolume.getBlockCount() - 1] = r_type;
 			resultCurrentTypeCount[cubeVolume.getBlockCount() - 1]++;
 			resultBlockStart[cubeVolume.getBlockCount() - 1] = cubeVolume.cubeVolumePointer;
@@ -92,7 +78,6 @@ public class Algorithm {
 	}
 
 	private void removeLastInsertedBlock() {
-		logger.trace("REMOVE");
 		int r_type = resultCurrentType[cubeVolume.getBlockCount() - 1];
 		int r_space = resultBlockStart[cubeVolume.getBlockCount() - 1];
 		int block[] = BlockHelper.getBlock(r_type, r_space);
@@ -105,37 +90,38 @@ public class Algorithm {
 
 	private void checkIfSolutionFound() {
 		if (cubeVolume.isSolution()) {
+			logger.info("solution found");
 			solutions.add(cubeVolume);
-			stepBackForNextSolution();
+			stepBackForTheNextSolution();
 		}
 	}
 
-	private void saveToFile(CubeVolume cubeVolume) {
-		try {
-			FileHelper.string2File(Text.toString(cubeVolume), FileHelper.Extension.TXT);
-			FileHelper.string2File(SVG.toString(cubeVolume), FileHelper.Extension.HTML);
-		} catch (JadeException | IOException e) {
-			e.printStackTrace();
-		}
-	}
-
-	private void stepBackForNextSolution() {
-		cubeVolume = new CubeVolume();
-
-		int i;
-		for (i = CubeVolume.MAX_BLOCK - 1; i > 0; i--)
-			if (resultCurrentTypeCount[i] == resultMaxTypes[i]) {
-				resultCurrentType[i] = -1;
+	private int findNextBranchStep() {
+		int n;
+		for (n = CubeVolume.MAX_BLOCK - 1; n > 0; n--) {
+			if (resultCurrentTypeCount[n] == resultMaxTypes[n]) {
+				resultCurrentType[n] = -1;
 			} else {
 				break;
 			}
-		Vector<Integer> vector = new Vector<Integer>();
-		for (int j = 0; j < i; j++) {
-			vector = cubeVolume.possibileInsertsVector(resultBlockStart[j]);
+		}
+		return n;
+	}
+
+	private void stepBackForTheNextSolution() {
+		cubeVolume = new CubeVolumeBuilder().empty().build();
+		int n = findNextBranchStep();
+		recreateCube(n);
+	}
+
+	private void recreateCube(int n) {
+		for (int j = 0; j < n; j++) {
+			Vector<Integer> possibleInserts = cubeVolume.possibileInserts(resultBlockStart[j]);
 			int index = resultCurrentTypeCount[cubeVolume.getBlockCount()];
-			int r_type = vector.get(index - 1);
+			int r_type = possibleInserts.get(index - 1);
 			cubeVolume.insert(BlockHelper.getBlock(r_type, resultBlockStart[j]));
 		}
+
 	}
 
 }

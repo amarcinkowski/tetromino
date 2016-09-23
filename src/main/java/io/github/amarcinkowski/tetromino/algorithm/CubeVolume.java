@@ -19,10 +19,10 @@ public class CubeVolume {
 
 	public final static int MAX_BLOCK = VOLUME / BlockHelper.BLOCK_VOLUME;
 
-	private int blockcount = 0;
+	protected int blockcount = 0;
 	protected int cubeVolumePointer = 0;
 
-	private int filled[] = new int[VOLUME];
+	protected int filled[] = new int[VOLUME];
 
 	public static boolean exists(int x, int y, int z) {
 		if (x >= 0 && x < SIZE_X && y >= 0 && y < SIZE_Y && z >= 0 && z < SIZE_Z) {
@@ -69,6 +69,10 @@ public class CubeVolume {
 		return true;
 	}
 
+	public boolean isEmpty() {
+		return blockcount == 0;
+	}
+
 	public boolean isEmpty(int n) {
 		int dim[] = BlockConverter.n2XYZ(n);
 		return exists(dim[0], dim[1], dim[2]) && filled[n] == 0;
@@ -88,7 +92,7 @@ public class CubeVolume {
 		return count;
 	}
 
-	public Vector<Integer> possibileInsertsVector(int space) {
+	public Vector<Integer> possibileInserts(int space) {
 		Vector<Integer> result = new Vector<Integer>();
 		if (!isEmpty(space)) {
 			return result;
@@ -144,16 +148,11 @@ public class CubeVolume {
 	}
 
 	/** Creates a new instance of CubeVolume */
-	public CubeVolume() {
-		reset();
+	private CubeVolume() {
 	}
 
-	private void reset() {
-		cubeVolumePointer = 0;
-		blockcount = 0;
-		for (int x = 0; x < VOLUME; x++) {
-			filled[x] = 0;
-		}
+	public static CubeVolume newInstance() {
+		return new CubeVolume();
 	}
 
 	public boolean isSolution() {
