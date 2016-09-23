@@ -10,27 +10,25 @@ import de.neuland.jade4j.JadeConfiguration;
 import de.neuland.jade4j.exceptions.JadeException;
 import de.neuland.jade4j.template.JadeTemplate;
 import io.github.amarcinkowski.tetromino.algorithm.BlockType;
+import io.github.amarcinkowski.tetromino.algorithm.CubeVolume;
 import io.github.amarcinkowski.tetromino.algorithm.Block;
 
 public class SVG {
 
-	public static void create(List<Block> blocks) {
+	public static String toString(CubeVolume cubeVolume) throws JadeException, IOException {
+		List<Block> blocks = cubeVolume.getBlockList();
 		JadeConfiguration configuration = new JadeConfiguration();
 		configuration.setMode(Jade4J.Mode.XHTML);
 		configuration.setPrettyPrint(true);
-		try {
-			JadeTemplate template = configuration.getTemplate("src/main/resources/svg.jade");
+		JadeTemplate template = configuration.getTemplate("src/main/resources/svg.jade");
 
-			Map<String, Object> model = new HashMap<String, Object>();
-			model.put("pageName", "tetromino");
-			model.put("blocks", blocks);
-			model.put("blockTypes", BlockType.values());
+		Map<String, Object> model = new HashMap<String, Object>();
+		model.put("pageName", "tetromino");
+		model.put("blocks", blocks);
+		model.put("blockTypes", BlockType.values());
 
-			String s = configuration.renderTemplate(template, model);
-			FileHelper.string2File(s);
-		} catch (JadeException | IOException e1) {
-			e1.printStackTrace();
-		}
+		String s = configuration.renderTemplate(template, model);
+		return s;
 	}
 
 }

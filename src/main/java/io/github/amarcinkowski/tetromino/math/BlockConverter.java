@@ -7,7 +7,7 @@ import io.github.amarcinkowski.tetromino.algorithm.BlockBuilder;
 import io.github.amarcinkowski.tetromino.algorithm.BlockType;
 import io.github.amarcinkowski.tetromino.algorithm.CubeVolume;
 
-public class Conversion {
+public class BlockConverter {
 
 	/**
 	 * Convert xyz to n.
@@ -106,7 +106,7 @@ public class Conversion {
 				type = BlockType.VERTICAL_EAST;
 			}
 		}
-		int xyz[] = Conversion.n2XYZ(n4[0]);
+		int xyz[] = BlockConverter.n2XYZ(n4[0]);
 		return new BlockBuilder().xyz(xyz).type(type).build();
 	}
 

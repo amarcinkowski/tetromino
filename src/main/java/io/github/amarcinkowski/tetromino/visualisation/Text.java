@@ -1,24 +1,24 @@
 package io.github.amarcinkowski.tetromino.visualisation;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import io.github.amarcinkowski.tetromino.math.Conversion;
+import io.github.amarcinkowski.tetromino.algorithm.CubeVolume;
+import io.github.amarcinkowski.tetromino.math.BlockConverter;
 
 public class Text {
 
-//	private static Logger logger = LoggerFactory.getLogger(Text.class);
-
-	public static void printFilled(int[] filled) {
-		for (int z = 0; z < 2; z++) {
-			System.out.println("\n== " + z + " ==");
-			for (int y = 0; y < 6; y++) {
-				System.out.print("\n" + y + "\t");
+	public static String toString(CubeVolume cubeVolume) {
+		int[] filled = cubeVolume.getFilled();
+		StringBuilder builder = new StringBuilder();
+		for (int y = 0; y < 6; y++) {
+			builder.append("\t");
+			for (int z = 0; z < 2; z++) {
+				builder.append("\t");
 				for (int x = 0; x < 6; x++) {
-					System.out.print(String.format("%3s", filled[Conversion.xyz2N(x, y, z)]));
+					builder.append(String.format("%3s", filled[BlockConverter.xyz2N(x, y, z)]));
 				}
 			}
+			builder.append("\n");
 		}
+		return builder.toString();
 	}
 
 }

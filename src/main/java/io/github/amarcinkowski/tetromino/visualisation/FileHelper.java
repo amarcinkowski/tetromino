@@ -7,9 +7,13 @@ import java.util.Date;
 
 public class FileHelper {
 
-	public static void string2File(String fileString) throws IOException {
+	public enum Extension {
+		HTML, TXT
+	}
+
+	public static void string2File(String fileString, Extension extension) throws IOException {
 		Date d = new Date();
-		String filename = String.format("bin/%ty%tm%td%tH.html", d, d, d, d);
+		String filename = String.format("bin/%ty%tm%td%tH.%s", d, d, d, d, extension.toString().toLowerCase());
 		Files.write(Paths.get(filename), fileString.getBytes());
 	}
 

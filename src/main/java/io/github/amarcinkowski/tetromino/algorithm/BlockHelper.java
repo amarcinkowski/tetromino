@@ -2,15 +2,28 @@ package io.github.amarcinkowski.tetromino.algorithm;
 
 import java.util.Vector;
 
-import io.github.amarcinkowski.tetromino.math.Conversion;
+import io.github.amarcinkowski.tetromino.math.BlockConverter;
 import io.github.amarcinkowski.tetromino.math.Transformations3D;
 
 public class BlockHelper {
 
 	public final static int BLOCK_VOLUME = 4;
+	public static final int MAX_BLOCK_TYPE = 32;
 
-	private static Vector<int[]>[] cubeVector = BlockHelper
-			.getAllPossibileBlocks();
+	@SuppressWarnings("unchecked")
+	private static Vector<int[]>[] cubeVector = new Vector[CubeVolume.VOLUME];
+
+	static {
+		for (int k = 0; k < CubeVolume.VOLUME; k++) {
+			cubeVector[k] = new Vector<int[]>();
+			for (int i = 1; i <= BlockHelper.MAX_BLOCK_TYPE; i++) {
+				int block[] = BlockHelper.block(i, k);
+				if (BlockHelper.isInsertionPossibile(block)) {
+					cubeVector[k].add(block);
+				}
+			}
+		}
+	}
 
 	public static int[] getBlock(int number, int space) {
 		return cubeVector[space].get(number);
@@ -22,26 +35,6 @@ public class BlockHelper {
 
 	public static int getPossibilitiesCount(int space) {
 		return (int) cubeVector[space].size();
-	}
-
-	/**
-	 * Gets the all possibile blocks.
-	 * 
-	 * @return the all possibile blocks
-	 */
-	@SuppressWarnings("unchecked")
-	private static Vector<int[]>[] getAllPossibileBlocks() {
-		Vector<int[]>[] cubeVector = new Vector[CubeVolume.VOLUME];
-		for (int k = 0; k < CubeVolume.VOLUME; k++) {
-			cubeVector[k] = new Vector<int[]>();
-			for (int i = 1; i <= BlockHelper.MAX_BLOCK_TYPE; i++) {
-				int block[] = BlockHelper.block(i, k);
-				if (BlockHelper.isInsertionPossibile(block)) {
-					cubeVector[k].add(block);
-				}
-			}
-		}
-		return cubeVector;
 	}
 
 	// TODO switcha zmienic na 2 fory (po 4 obroty w 2 plaszczyznach x 4
@@ -64,7 +57,7 @@ public class BlockHelper {
 		if (type < 1 && type > BlockHelper.MAX_BLOCK_TYPE) {
 			throw new Exception("No such block type.");
 		}
-	
+
 		switch (type) {
 		// UP
 		case 1:
@@ -209,7 +202,7 @@ public class BlockHelper {
 			array = Transformations3D.translate(-1, -1, 0, b);
 			break;
 		}
-		array = Transformations3D.translate(Conversion.n2XYZ(shift), array);
+		array = Transformations3D.translate(BlockConverter.n2XYZ(shift), array);
 		return array;
 	}
 
@@ -229,7 +222,7 @@ public class BlockHelper {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return Conversion.vectorToNBlock(array);
+		return BlockConverter.vectorToNBlock(array);
 	}
 
 	/**
@@ -247,8 +240,6 @@ public class BlockHelper {
 		}
 		return true;
 	}
-
-	public static final int MAX_BLOCK_TYPE = 32;
 
 
 }

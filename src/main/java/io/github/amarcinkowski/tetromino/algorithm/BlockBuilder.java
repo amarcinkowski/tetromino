@@ -1,6 +1,10 @@
 package io.github.amarcinkowski.tetromino.algorithm;
 
-import io.github.amarcinkowski.tetromino.math.Conversion;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+
+import io.github.amarcinkowski.tetromino.math.BlockConverter;
 
 public class BlockBuilder {
 
@@ -29,8 +33,17 @@ public class BlockBuilder {
 		return block;
 	}
 
+
+	public BlockBuilder collection(Collection<Integer> collection) {
+		ArrayList<Integer> v = new ArrayList<>(collection);
+		Collections.sort(v);
+		int n4[] = v.stream().mapToInt(Integer::intValue).toArray();
+		block = BlockConverter.n4ToBlock(n4);
+		return this;
+	}
+	
 	public BlockBuilder n4(int[] array) {
-		block = Conversion.n4ToBlock(array);
+		block = BlockConverter.n4ToBlock(array);
 		return this;
 	}
 }

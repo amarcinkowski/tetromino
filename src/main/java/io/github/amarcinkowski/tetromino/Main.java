@@ -23,8 +23,8 @@ public class Main {
 	 *            the arguments
 	 */
 	public static void main(String[] args) {
-		Algorithm.run();
-		logger.info(String.format("TIME %d sec", (System.currentTimeMillis() - startTime) / 1000));
+		new Algorithm().run();
+		logger.info(String.format("Time taken %d sec", (System.currentTimeMillis() - startTime) / 1000));
 	}
 
 }

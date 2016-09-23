@@ -1,21 +1,15 @@
 package io.github.amarcinkowski.tetromino.algorithm;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Vector;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Multimap;
 
-import io.github.amarcinkowski.tetromino.math.Conversion;
+import io.github.amarcinkowski.tetromino.math.BlockConverter;
 
 public class CubeVolume {
-
-	private static Logger logger = LoggerFactory.getLogger(CubeVolume.class);
 
 	public final static int SIZE_X = 6;
 	public final static int SIZE_Y = 6;
@@ -23,14 +17,12 @@ public class CubeVolume {
 
 	public final static int VOLUME = SIZE_X * SIZE_Y * SIZE_Z;
 
-	private int blockcount = 0;
-	private int filled[] = new int[VOLUME];
-
-	private int possibilities[] = new int[VOLUME];
-
 	public final static int MAX_BLOCK = VOLUME / BlockHelper.BLOCK_VOLUME;
 
-	static int cubeVolumePointer = 0;
+	private int blockcount = 0;
+	protected int cubeVolumePointer = 0;
+
+	private int filled[] = new int[VOLUME];
 
 	public static boolean exists(int x, int y, int z) {
 		if (x >= 0 && x < SIZE_X && y >= 0 && y < SIZE_Y && z >= 0 && z < SIZE_Z) {
@@ -42,8 +34,8 @@ public class CubeVolume {
 
 	public boolean hasEmptySpaceThatCannotBeFilledWithABlock() {
 
-		for (int x = 0; x < VOLUME; x++) {
-			if (isEmpty(x) && possibileInsertsCount(x) == 0) {
+		for (int n = 0; n < VOLUME; n++) {
+			if (isEmpty(n) && possibileInsertsCount(n) == 0) {
 				return true;
 			}
 		}
@@ -78,7 +70,7 @@ public class CubeVolume {
 	}
 
 	public boolean isEmpty(int n) {
-		int dim[] = Conversion.n2XYZ(n);
+		int dim[] = BlockConverter.n2XYZ(n);
 		return exists(dim[0], dim[1], dim[2]) && filled[n] == 0;
 	}
 
@@ -141,10 +133,7 @@ public class CubeVolume {
 			map.put(filled[i], i);
 		}
 		for (Integer key : map.keySet()) {
-			ArrayList<Integer> v = new ArrayList<>(map.get(key));
-			Collections.sort(v);
-			int n4[] = v.stream().mapToInt(Integer::intValue).toArray();
-			Block block = new BlockBuilder().n4(n4).build();
+			Block block = new BlockBuilder().collection(map.get(key)).build();
 			blocks.add(block);
 		}
 		return blocks;
@@ -156,12 +145,15 @@ public class CubeVolume {
 
 	/** Creates a new instance of CubeVolume */
 	public CubeVolume() {
+		reset();
+	}
+
+	private void reset() {
 		cubeVolumePointer = 0;
+		blockcount = 0;
 		for (int x = 0; x < VOLUME; x++) {
 			filled[x] = 0;
 		}
-		for (int x = 0; x < VOLUME; x++)
-			possibilities[x] = possibileInsertsCount(x);
 	}
 
 	public boolean isSolution() {
