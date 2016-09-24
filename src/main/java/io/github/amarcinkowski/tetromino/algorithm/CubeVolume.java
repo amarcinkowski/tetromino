@@ -7,7 +7,7 @@ import java.util.Vector;
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Multimap;
 
-import io.github.amarcinkowski.tetromino.math.BlockConverter;
+import io.github.amarcinkowski.tetromino.math.CoordinateConverter;
 
 public class CubeVolume {
 
@@ -74,7 +74,7 @@ public class CubeVolume {
 	}
 
 	public boolean isEmpty(int n) {
-		int dim[] = BlockConverter.n2XYZ(n);
+		int dim[] = CoordinateConverter.n2XYZ(n);
 		return exists(dim[0], dim[1], dim[2]) && filled[n] == 0;
 	}
 

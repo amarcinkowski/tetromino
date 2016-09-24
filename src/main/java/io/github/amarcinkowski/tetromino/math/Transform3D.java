@@ -5,7 +5,7 @@ import org.apache.commons.math3.linear.RealMatrix;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class Transformations3D {
+public class Transform3D {
 
 	public static final double[] V101 = { 1.0, 0.0, 1.0, 1.0 };
 
@@ -15,7 +15,7 @@ public class Transformations3D {
 
 	public static final double[] V000 = { 0.0, 0.0, 0.0, 1.0 };
 
-	public static Logger logger = LoggerFactory.getLogger(Transformations3D.class);
+	public static Logger logger = LoggerFactory.getLogger(Transform3D.class);
 
 	public final static double[][] BLOCK_3D_VERTICES = { V000, V100, V200, V101 };
 
@@ -37,7 +37,7 @@ public class Transformations3D {
 		return arraysC;
 	}
 
-	private static double[][] normalize(double[][] array) {
+	private static double[][] round(double[][] array) {
 		for (int i = 0; i < array.length; i++) {
 			for (int j = 0; j < array[i].length; j++) {
 				array[i][j] = Math.round(array[i][j] * 1000) / 1000;
@@ -96,7 +96,7 @@ public class Transformations3D {
 	public static double[][] rotate(char q, int x90, double[][] rotated) {
 		double[][] rotationMatrix = getRotationMatrix(q, x90);
 		double[][] array = matrixMultiply(rotationMatrix, rotated);
-		return normalize(array);
+		return round(array);
 	}
 
 	private static double[][] getRotationMatrix(char q, int x90) {

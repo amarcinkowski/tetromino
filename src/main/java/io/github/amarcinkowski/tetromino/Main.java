@@ -1,7 +1,6 @@
 package io.github.amarcinkowski.tetromino;
 
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.Vector;
 
 import org.slf4j.Logger;
@@ -38,7 +37,7 @@ public class Main {
 			for (CubeVolume cubeVolume : solutions) {
 				saveToFile("s" + ++i, cubeVolume);
 			}
-			addAuxiliaryFiles();
+			SVG.addAuxiliaryFiles();
 		} catch (JadeException | IOException e) {
 			e.printStackTrace();
 		}
@@ -46,23 +45,9 @@ public class Main {
 				(System.currentTimeMillis() - startTime) / 1000));
 	}
 
-	private static void addAuxiliaryFiles() throws IOException {
-		// SVG auxiliary files
-		FileHelper.string2File("svg.css", FileHelper.file2String("src/main/resources/svg.css"));
-		HashMap<String, String> svgFiles = FileHelper.readAll2String("src/main/resources", "svg");
-		svgFiles.entrySet().stream().forEach(entry -> {
-			try {
-				FileHelper.string2File(entry.getKey().replaceAll("src/main/resources/", ""), entry.getValue());
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		});
-
-	}
-
 	private static void saveToFile(String name, CubeVolume cubeVolume) throws JadeException, IOException {
-		FileHelper.string2File(name + ".txt", Text.toString(cubeVolume));
-		FileHelper.string2File(name + ".html", SVG.toString(cubeVolume));
+		FileHelper.string2File(name + ".txt", new Text().getContents(cubeVolume));
+		FileHelper.string2File(name + ".html", new SVG().getContents(cubeVolume));
 	}
 
 }

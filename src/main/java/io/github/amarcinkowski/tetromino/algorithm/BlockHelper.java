@@ -3,7 +3,8 @@ package io.github.amarcinkowski.tetromino.algorithm;
 import java.util.Vector;
 
 import io.github.amarcinkowski.tetromino.math.BlockConverter;
-import io.github.amarcinkowski.tetromino.math.Transformations3D;
+import io.github.amarcinkowski.tetromino.math.CoordinateConverter;
+import io.github.amarcinkowski.tetromino.math.Transform3D;
 
 public class BlockHelper {
 
@@ -54,166 +55,180 @@ public class BlockHelper {
 	private static double[][] type2Vector(int type) {
 		double[][] a, b, c;
 		double array[][] = null;
-		a = Transformations3D.BLOCK_3D_VERTICES;
+		a = Transform3D.BLOCK_3D_VERTICES;
 
 		boolean less = false;
 		switch (type) {
 		// UP
 		case 1: // 0001.svg
-			array = Transformations3D.translate(0, 0, 0, a);
+			array = Transform3D.translate(0, 0, 0, a);
 			break; // 0,1,2,37
 		case 2: // --
-			array = Transformations3D.translate(-1, 0, 0, a);
-			if (less) {array = Transformations3D.translate(-100, -100, -100, a);}
+			array = Transform3D.translate(-1, 0, 0, a);
+			if (less) {
+				array = Transform3D.translate(-100, -100, -100, a);
+			}
 			break;
 		case 3: // --
-			array = Transformations3D.translate(-2, 0, 0, a);
-			if (less) {array = Transformations3D.translate(-100, -100, -100, a);}
+			array = Transform3D.translate(-2, 0, 0, a);
+			if (less) {
+				array = Transform3D.translate(-100, -100, -100, a);
+			}
 			break;
-		case 4:
-			b = Transformations3D.rotate('z', -1, a);
-			array = Transformations3D.translate(0, 0, 0, b);
+		case 4: // --
+			b = Transform3D.rotate('z', -1, a);
+			array = Transform3D.translate(0, 0, 0, b);
+			if (less) {
+				array = Transform3D.translate(-100, -100, -100, a);
+			}
 			break;
-		case 5:
-			b = Transformations3D.rotate('z', -1, a);
-			array = Transformations3D.translate(0, -1, 0, b);
+		case 5: // --
+			b = Transform3D.rotate('z', -1, a);
+			array = Transform3D.translate(0, -1, 0, b);
+			if (less) {
+				array = Transform3D.translate(-100, -100, -100, a);
+			}
 			break;
-		case 6:
-			b = Transformations3D.rotate('z', -1, a);
-			array = Transformations3D.translate(0, -2, 0, b);
+		case 6: // 005.svg
+			b = Transform3D.rotate('z', -1, a);
+			array = Transform3D.translate(0, -2, 0, b);
 			break;
-		case 7:
-			array = Transformations3D.translate(-1, 0, -1, a);
+		case 7: // --
+			array = Transform3D.translate(-1, 0, -1, a);
+			if (less) {
+				array = Transform3D.translate(-100, -100, -100, a);
+			}
 			break;
-		case 8:
-			b = Transformations3D.rotate('z', -1, a);
-			array = Transformations3D.translate(0, -1, -1, b);
+		case 8: // --
+			b = Transform3D.rotate('z', -1, a);
+			array = Transform3D.translate(0, -1, -1, b);
+			if (less) {
+				array = Transform3D.translate(-100, -100, -100, a);
+			}
 			break;
 		// DOWN
-		case 9:
-			b = Transformations3D.rotate('x', 2, a);
-			array = Transformations3D.translate(0, 0, 0, b);
+		case 9: // --
+			b = Transform3D.rotate('x', 2, a);
+			array = Transform3D.translate(0, 0, 0, b);
 			break;
-		case 10:
-			b = Transformations3D.rotate('x', 2, a);
-			array = Transformations3D.translate(-1, 0, 0, b);
+		case 10: // --
+			b = Transform3D.rotate('x', 2, a);
+			array = Transform3D.translate(-1, 0, 0, b);
 			break;
-		case 11:
-			b = Transformations3D.rotate('x', 2, a);
-			array = Transformations3D.translate(-2, 0, 0, b);
+		case 11: // --
+			b = Transform3D.rotate('x', 2, a);
+			array = Transform3D.translate(-2, 0, 0, b);
 			break;
-		case 12:
-			b = Transformations3D.rotate('x', 2, a);
-			array = Transformations3D.translate(-1, 0, 1, b);
+		case 12: // 0003.svg
+			b = Transform3D.rotate('x', 2, a);
+			array = Transform3D.translate(-1, 0, 1, b);
 			break;
-		case 13:
-			b = Transformations3D.rotate('x', 2, a);
-			c = Transformations3D.translate(0, 0, 0, b);
-			array = Transformations3D.rotate('z', -1, c);
+		case 13: // --
+			b = Transform3D.rotate('x', 2, a);
+			c = Transform3D.translate(0, 0, 0, b);
+			array = Transform3D.rotate('z', -1, c);
 			break;
-		case 14:
-			b = Transformations3D.rotate('x', 2, a);
-			c = Transformations3D.translate(-1, 0, 0, b);
-			array = Transformations3D.rotate('z', -1, c);
+		case 14: // --
+			b = Transform3D.rotate('x', 2, a);
+			c = Transform3D.translate(-1, 0, 0, b);
+			array = Transform3D.rotate('z', -1, c);
 			break;
-		case 15:
-			b = Transformations3D.rotate('x', 2, a);
-			c = Transformations3D.translate(-2, 0, 0, b);
-			array = Transformations3D.rotate('z', -1, c);
+		case 15: // --
+			b = Transform3D.rotate('x', 2, a);
+			c = Transform3D.translate(-2, 0, 0, b);
+			array = Transform3D.rotate('z', -1, c);
 			break;
-		case 16:
-			b = Transformations3D.rotate('x', 2, a);
-			c = Transformations3D.translate(-1, 0, 1, b);
-			array = Transformations3D.rotate('z', -1, c);
+		case 16: // 0007.svg
+			b = Transform3D.rotate('x', 2, a);
+			c = Transform3D.translate(-1, 0, 1, b);
+			array = Transform3D.rotate('z', -1, c);
 			break;
 		// EAST
 		case 17:
-			b = Transformations3D.rotate('x', 1, a);
-			array = Transformations3D.rotate('z', 1, b);
+			b = Transform3D.rotate('x', 1, a);
+			array = Transform3D.rotate('z', 1, b);
 			break;
 		case 18:
-			b = Transformations3D.rotate('x', 1, a);
-			c = Transformations3D.rotate('z', 1, b);
-			array = Transformations3D.translate(0, 1, 0, c);
+			b = Transform3D.rotate('x', 1, a);
+			c = Transform3D.rotate('z', 1, b);
+			array = Transform3D.translate(0, 1, 0, c);
 			break;
 		case 19:
-			b = Transformations3D.rotate('x', 1, a);
-			c = Transformations3D.rotate('z', 1, b);
-			array = Transformations3D.translate(0, 2, 0, c);
+			b = Transform3D.rotate('x', 1, a);
+			c = Transform3D.rotate('z', 1, b);
+			array = Transform3D.translate(0, 2, 0, c);
 			break;
 		case 20:
-			b = Transformations3D.rotate('x', 1, a);
-			c = Transformations3D.rotate('z', 1, b);
-			array = Transformations3D.translate(-1, 1, 0, c);
+			b = Transform3D.rotate('x', 1, a);
+			c = Transform3D.rotate('z', 1, b);
+			array = Transform3D.translate(-1, 1, 0, c);
 			break;
 		// NORTH
 		case 21:
-			b = Transformations3D.rotate('x', 1, a);
-			array = Transformations3D.rotate('z', 2, b);
+			b = Transform3D.rotate('x', 1, a);
+			array = Transform3D.rotate('z', 2, b);
 			break;
 		case 22:
-			b = Transformations3D.rotate('x', 1, a);
-			c = Transformations3D.rotate('z', 2, b);
-			array = Transformations3D.translate(1, 0, 0, c);
+			b = Transform3D.rotate('x', 1, a);
+			c = Transform3D.rotate('z', 2, b);
+			array = Transform3D.translate(1, 0, 0, c);
 			break;
 		case 23:
-			b = Transformations3D.rotate('x', 1, a);
-			c = Transformations3D.rotate('z', 2, b);
-			array = Transformations3D.translate(2, 0, 0, c);
+			b = Transform3D.rotate('x', 1, a);
+			c = Transform3D.rotate('z', 2, b);
+			array = Transform3D.translate(2, 0, 0, c);
 			break;
 		case 24:
-			b = Transformations3D.rotate('x', 1, a);
-			c = Transformations3D.rotate('z', 2, b);
-			array = Transformations3D.translate(1, 1, 0, c);
+			b = Transform3D.rotate('x', 1, a);
+			c = Transform3D.rotate('z', 2, b);
+			array = Transform3D.translate(1, 1, 0, c);
 			break;
 		// WEST
 		case 25:
-			b = Transformations3D.rotate('x', 1, a);
-			array = Transformations3D.rotate('z', 3, b);
+			b = Transform3D.rotate('x', 1, a);
+			array = Transform3D.rotate('z', 3, b);
 			break;
 		case 26:
-			b = Transformations3D.rotate('x', 1, a);
-			c = Transformations3D.rotate('z', 3, b);
-			array = Transformations3D.translate(0, -1, 0, c);
+			b = Transform3D.rotate('x', 1, a);
+			c = Transform3D.rotate('z', 3, b);
+			array = Transform3D.translate(0, -1, 0, c);
 			break;
 		case 27:
-			b = Transformations3D.rotate('x', 1, a);
-			c = Transformations3D.rotate('z', 3, b);
-			array = Transformations3D.translate(0, -2, 0, c);
+			b = Transform3D.rotate('x', 1, a);
+			c = Transform3D.rotate('z', 3, b);
+			array = Transform3D.translate(0, -2, 0, c);
 			break;
 		case 28:
-			b = Transformations3D.rotate('x', 1, a);
-			c = Transformations3D.rotate('z', 3, b);
-			array = Transformations3D.translate(1, -1, 0, c);
+			b = Transform3D.rotate('x', 1, a);
+			c = Transform3D.rotate('z', 3, b);
+			array = Transform3D.translate(1, -1, 0, c);
 			break;
 		// SOUTH
 		case 29:
-			array = Transformations3D.rotate('x', 1, a);
+			array = Transform3D.rotate('x', 1, a);
 			break;
 		case 30:
-			b = Transformations3D.rotate('x', 1, a);
-			array = Transformations3D.translate(-1, 0, 0, b);
+			b = Transform3D.rotate('x', 1, a);
+			array = Transform3D.translate(-1, 0, 0, b);
 			break;
 		case 31:
-			b = Transformations3D.rotate('x', 1, a);
-			array = Transformations3D.translate(-2, 0, 0, b);
+			b = Transform3D.rotate('x', 1, a);
+			array = Transform3D.translate(-2, 0, 0, b);
 			break;
 		case 32:
-			b = Transformations3D.rotate('x', 1, a);
-			array = Transformations3D.translate(-1, -1, 0, b);
+			b = Transform3D.rotate('x', 1, a);
+			array = Transform3D.translate(-1, -1, 0, b);
 			break;
 		}
 		return array;
 	}
 
 	private static double[][] typeShift2Vector(int type, int shift) throws Exception {
-
 		if (type < 1 && type > BlockHelper.MAX_BLOCK_TYPE) {
 			throw new Exception("No such block type.");
 		}
-
 		double[][] array = type2Vector(type);
-		array = Transformations3D.translate(BlockConverter.n2XYZ(shift), array);
+		array = Transform3D.translate(CoordinateConverter.n2XYZ(shift), array);
 		return array;
 	}
 

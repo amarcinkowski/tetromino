@@ -17,12 +17,12 @@ public class BlockBuilder {
 		return this;
 	}
 
-	public BlockBuilder type(BlockType type) {
-		block.type = type;
+	public BlockBuilder type(BlockDirection type) {
+		block.direction = type;
 		return this;
 	}
 
-	private double[] xyz2ScreenCoordinates(int x, int y, int z) {
+	public double[] xyz2ScreenCoordinates(int x, int y, int z) {
 		return new double[] { (6 * x - y * 2.95), (y * 2.65 + x * 1.25 - 5.9 * z) };
 	}
 

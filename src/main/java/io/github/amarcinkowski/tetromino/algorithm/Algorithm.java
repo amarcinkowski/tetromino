@@ -43,7 +43,7 @@ public class Algorithm {
 		boolean noMorePossibleInserts = noMorePossibleInsertsInThisBranch(cubeVolume.getBlockCount());
 
 		if (noMorePossibleInserts && cubeVolume.isEmpty()) {
-			logger.info("All solutions found");
+			logger.debug("All solutions found");
 			return false;
 		}
 

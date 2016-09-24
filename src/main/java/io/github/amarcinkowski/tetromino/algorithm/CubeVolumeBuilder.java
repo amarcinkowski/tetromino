@@ -13,14 +13,14 @@ public class CubeVolumeBuilder {
 		return this;
 	}
 	
-
+/*
 	/// XXXX ????
 	public CubeVolumeBuilder filled(int[] filled) {
 		cubeVolume.cubeVolumePointer = 0;
 		cubeVolume.filled = filled;
 		cubeVolume.blockcount = 0; // ???
 		return this;
-	}
+	}*/
 	
 	public CubeVolume build() {
 		return cubeVolume;
