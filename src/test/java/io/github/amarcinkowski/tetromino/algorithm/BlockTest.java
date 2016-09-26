@@ -21,6 +21,9 @@ public class BlockTest {
 	public void equalsTest() {
 		assertTrue(b000_.equals(b000u));
 		assertTrue(b000_.hashCode() == b000u.hashCode());
+		assertTrue(!b000u.equals(b000d));
+		assertTrue(!b000u.equals(new String()));
+		assertTrue(b000u.toString().equals("0,0,0-horizontal-up"));
 	}
 
 	@Test

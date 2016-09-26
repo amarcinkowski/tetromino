@@ -24,6 +24,10 @@ public class CoordinateConverter {
 		return xyz;
 	}
 
+	public static int xyz2N(int x, int y, int z) {
+		return xyz2N(new int[] { x, y, z });
+	}
+
 	/**
 	 * Field number.
 	 * 
@@ -35,12 +39,27 @@ public class CoordinateConverter {
 	 *            the z
 	 * @return the int
 	 */
-	public static int xyz2N(int x, int y, int z) {
+	public static int xyz2N(int[] xyz) {
+		int x = xyz[0];
+		int y = xyz[1];
+		int z = xyz[2];
 		if (CubeVolume.exists(x, y, z)) {
 			return x + y * CubeVolume.SIZE_X + z * CubeVolume.SIZE_X * CubeVolume.SIZE_Y;
 		} else {
 			return -1;
 		}
+	}
+
+	public static int[] vector2XYZ(double[] vector) {
+		int[] x = new int[3];
+		for (int j = 0; j < 3; j++) {
+			x[j] = (int) Math.round(vector[j]);
+		}
+		return x;
+	}
+
+	public static double[] xyz2ScreenCoordinates(int x, int y, int z) {
+		return new double[] { (6 * x - y * 2.95), (y * 2.65 + x * 1.25 - 5.9 * z) };
 	}
 
 }

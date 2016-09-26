@@ -15,14 +15,13 @@ public class CubeVolume {
 	public final static int SIZE_Y = 6;
 	public final static int SIZE_Z = 2;
 
-	public final static int VOLUME = SIZE_X * SIZE_Y * SIZE_Z;
-
-	public final static int MAX_BLOCK = VOLUME / BlockHelper.BLOCK_VOLUME;
+	public final static int VOLUME_SIZE = SIZE_X * SIZE_Y * SIZE_Z;
+	public final static int MAX_BLOCK = VOLUME_SIZE / BlockHelper.BLOCK_VOLUME;
 
 	protected int blockcount = 0;
 	protected int cubeVolumePointer = 0;
 
-	protected int filled[] = new int[VOLUME];
+	protected int filled[] = new int[VOLUME_SIZE];
 
 	public static boolean exists(int x, int y, int z) {
 		if (x >= 0 && x < SIZE_X && y >= 0 && y < SIZE_Y && z >= 0 && z < SIZE_Z) {
@@ -34,7 +33,7 @@ public class CubeVolume {
 
 	public boolean hasEmptySpaceThatCannotBeFilledWithABlock() {
 
-		for (int n = 0; n < VOLUME; n++) {
+		for (int n = 0; n < VOLUME_SIZE; n++) {
 			if (isEmpty(n) && possibileInsertsCount(n) == 0) {
 				return true;
 			}
@@ -133,8 +132,11 @@ public class CubeVolume {
 	public List<Block> getBlockList() {
 		List<Block> blocks = new ArrayList<>();
 		Multimap<Integer, Integer> map = ArrayListMultimap.create();
-		for (int i = 0; i < filled.length; i++) {
-			map.put(filled[i], i);
+		for (int index = 0; index < filled.length; index++) {
+			int blockNumber = filled[index];
+			if (blockNumber > 0) {
+				map.put(blockNumber, index);
+			}
 		}
 		for (Integer key : map.keySet()) {
 			Block block = new BlockBuilder().collection(map.get(key)).build();
@@ -163,6 +165,22 @@ public class CubeVolume {
 		while (!isEmpty(cubeVolumePointer)) {
 			cubeVolumePointer++;
 		}
+	}
+
+	/**
+	 * Possibile.
+	 * 
+	 * @param block
+	 *            the block
+	 * @return true, if successful
+	 */
+	static boolean isInsertionPossibile(int[] block) {
+		for (int i = 0; i < 4; i++) {
+			if (block[i] == -1) {
+				return false;
+			}
+		}
+		return true;
 	}
 
 }
