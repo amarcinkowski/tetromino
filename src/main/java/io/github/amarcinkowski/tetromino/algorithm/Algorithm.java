@@ -90,7 +90,7 @@ public class Algorithm {
 
 	private void checkIfSolutionFound() {
 		if (cubeVolume.isSolution()) {
-			logger.info("solution found");
+			logger.trace("solution found");
 			solutions.add(cubeVolume);
 			stepBackForTheNextSolution();
 		}
