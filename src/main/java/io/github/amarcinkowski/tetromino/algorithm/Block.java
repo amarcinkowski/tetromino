@@ -2,8 +2,7 @@ package io.github.amarcinkowski.tetromino.algorithm;
 
 public class Block implements Comparable<Block> {
 	public int x, y, z;
-	public BlockDirection direction;
-	public double screenx, screeny;
+	public BlockDirection direction = null;
 
 	protected Block() {
 	}
@@ -36,4 +35,7 @@ public class Block implements Comparable<Block> {
 		return String.format("%d,%d,%d-%s", x, y, z, direction);
 	}
 
+	public String file() {
+		return String.format("000%d.svg", direction.ordinal() + 1);
+	}
 }
