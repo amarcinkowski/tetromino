@@ -13,9 +13,14 @@ import io.github.amarcinkowski.tetromino.algorithm.Block;
 import io.github.amarcinkowski.tetromino.algorithm.BlockDirection;
 import io.github.amarcinkowski.tetromino.algorithm.CubeVolume;
 
-public class SVG implements SolutionExporter {
+public class SVG extends FileOutput {
 
-	public String getContents(CubeVolume cubeVolume) throws JadeException, IOException {
+	public SVG(CubeVolume cubeVolume) {
+		super(cubeVolume);
+		EXTENSION = "html";
+	}
+
+	protected String getContents() throws JadeException, IOException {
 		List<Block> blocks = cubeVolume.getBlockList();
 		JadeConfiguration configuration = new JadeConfiguration();
 		configuration.setMode(Jade4J.Mode.XHTML);
@@ -43,7 +48,7 @@ public class SVG implements SolutionExporter {
 				e.printStackTrace();
 			}
 		});
-	
+
 	}
 
 }

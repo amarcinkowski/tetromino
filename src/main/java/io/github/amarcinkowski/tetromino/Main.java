@@ -9,7 +9,6 @@ import org.slf4j.LoggerFactory;
 import de.neuland.jade4j.exceptions.JadeException;
 import io.github.amarcinkowski.tetromino.algorithm.Algorithm;
 import io.github.amarcinkowski.tetromino.algorithm.CubeVolume;
-import io.github.amarcinkowski.tetromino.visualisation.FileHelper;
 import io.github.amarcinkowski.tetromino.visualisation.SVG;
 import io.github.amarcinkowski.tetromino.visualisation.Text;
 
@@ -32,10 +31,9 @@ public class Main {
 	 */
 	public static void main(String[] args) {
 		Vector<CubeVolume> solutions = new Algorithm().run();
-		int i = 0;
 		try {
 			for (CubeVolume cubeVolume : solutions) {
-				saveToFile("s" + ++i, cubeVolume);
+				saveToFile(cubeVolume);
 			}
 			SVG.addAuxiliaryFiles();
 		} catch (JadeException | IOException e) {
@@ -45,9 +43,9 @@ public class Main {
 				(System.currentTimeMillis() - startTime) / 1000));
 	}
 
-	private static void saveToFile(String name, CubeVolume cubeVolume) throws JadeException, IOException {
-		FileHelper.string2File(name + ".txt", new Text().getContents(cubeVolume));
-		FileHelper.string2File(name + ".html", new SVG().getContents(cubeVolume));
+	private static void saveToFile(CubeVolume cubeVolume) throws JadeException, IOException {
+		new SVG(cubeVolume).save();
+		new Text(cubeVolume).save();
 	}
 
 }
