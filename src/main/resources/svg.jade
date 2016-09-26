@@ -19,7 +19,10 @@ html
      for block in blocks
       // block
       g(transform='translate(#{block.screenx} #{block.screeny})')
-       image(xlink:href='#{block.direction.symbol()}.svg' id='c#{x++}')
-        animate(xlink:href="#c#{x}" id="a#{x}" attributeType="CSS" attributeName="opacity" from="1.2" to="-1.2" dur="9s" repeatCount="indefinite" begin="a#{x-1}.begin + 0.23s")
+       image(xlink:href='#{block.file()}' id='c#{x++}')
+        animate(xlink:href="#c#{x}" id="a#{x}" attributeType="CSS" attributeName="opacity" from="1.2" to="-0.9" dur="10s" repeatCount="indefinite" begin="a#{x-1}.begin + 0.19s")
        //line(x1='a#{block.screenx}' y1="10" x2="41" y2="30" stroke-width="0.1" stroke="white")
+     
+   
+  
      
