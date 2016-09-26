@@ -3,6 +3,7 @@ package io.github.amarcinkowski.tetromino.visualisation;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import de.neuland.jade4j.Jade4J;
@@ -12,6 +13,7 @@ import de.neuland.jade4j.template.JadeTemplate;
 import io.github.amarcinkowski.tetromino.algorithm.Block;
 import io.github.amarcinkowski.tetromino.algorithm.BlockDirection;
 import io.github.amarcinkowski.tetromino.algorithm.CubeVolume;
+import io.github.amarcinkowski.tetromino.math.CoordinateConverter;
 
 public class SVG extends FileOutput {
 
@@ -31,10 +33,21 @@ public class SVG extends FileOutput {
 		model.put("pageName", "tetromino");
 		model.put("defs", FileHelper.readAll2String("src/main/resources", "svg"));
 		model.put("blocks", blocks);
+		model.put("screenPosition", getPositions(blocks));
 		model.put("blockTypes", BlockDirection.values());
 
 		String s = configuration.renderTemplate(template, model);
 		return s;
+	}
+
+	private static HashMap<Block, String> getPositions(List<Block> blocks) {
+		HashMap<Block, String> map = new HashMap<>();
+		for (Block b : blocks) {
+			double[] screenxy = CoordinateConverter.xyz2ScreenCoordinates(b.x, b.y, b.z);
+			String position = String.format(Locale.US, "%.2f %.2f", screenxy[0], screenxy[1]);
+			map.put(b, position);
+		}
+		return map;
 	}
 
 	public static void addAuxiliaryFiles() throws IOException {

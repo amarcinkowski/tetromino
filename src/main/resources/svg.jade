@@ -18,7 +18,7 @@ html
       text(x=22 y='#{11+2*blockType.ordinal()}'  style="fill: #ffffff;" font-family="Verdana" font-size="1.5") #{blockType.name()}     
      for block in blocks
       // block
-      g(transform='translate(#{block.screenx} #{block.screeny})')
+      g(transform='translate(#{screenPosition.get(block)})')
        image(xlink:href='#{block.file()}' id='c#{x++}')
         animate(xlink:href="#c#{x}" id="a#{x}" attributeType="CSS" attributeName="opacity" from="1.2" to="-0.9" dur="10s" repeatCount="indefinite" begin="a#{x-1}.begin + 0.19s")
        //line(x1='a#{block.screenx}' y1="10" x2="41" y2="30" stroke-width="0.1" stroke="white")
