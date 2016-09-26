@@ -12,14 +12,14 @@ public class BlockHelper {
 	public static final int MAX_BLOCK_TYPE = 32;
 
 	@SuppressWarnings("unchecked")
-	private static Vector<int[]>[] cubeVector = new Vector[CubeVolume.VOLUME];
+	private static Vector<int[]>[] cubeVector = new Vector[CubeVolume.VOLUME_SIZE];
 
 	static {
-		for (int k = 0; k < CubeVolume.VOLUME; k++) {
+		for (int k = 0; k < CubeVolume.VOLUME_SIZE; k++) {
 			cubeVector[k] = new Vector<int[]>();
 			for (int i = 1; i <= BlockHelper.MAX_BLOCK_TYPE; i++) {
 				int block[] = BlockHelper.block(i, k);
-				if (BlockHelper.isInsertionPossibile(block)) {
+				if (CubeVolume.isInsertionPossibile(block)) {
 					cubeVector[k].add(block);
 				}
 			}
@@ -32,10 +32,6 @@ public class BlockHelper {
 
 	public static Vector<int[]> getAllPossibilities(int space) {
 		return cubeVector[space];
-	}
-
-	public static int getPossibilitiesCount(int space) {
-		return (int) cubeVector[space].size();
 	}
 
 	// TODO switcha zmienic na 2 fory (po 4 obroty w 2 plaszczyznach x 4
@@ -57,7 +53,6 @@ public class BlockHelper {
 		double array[][] = null;
 		a = Transform3D.BLOCK_3D_VERTICES;
 
-		boolean less = false;
 		switch (type) {
 		// UP
 		case 1: // 0001.svg
@@ -65,29 +60,17 @@ public class BlockHelper {
 			break; // 0,1,2,37
 		case 2: // --
 			array = Transform3D.translate(-1, 0, 0, a);
-			if (less) {
-				array = Transform3D.translate(-100, -100, -100, a);
-			}
 			break;
 		case 3: // --
 			array = Transform3D.translate(-2, 0, 0, a);
-			if (less) {
-				array = Transform3D.translate(-100, -100, -100, a);
-			}
 			break;
 		case 4: // --
 			b = Transform3D.rotate('z', -1, a);
 			array = Transform3D.translate(0, 0, 0, b);
-			if (less) {
-				array = Transform3D.translate(-100, -100, -100, a);
-			}
 			break;
 		case 5: // --
 			b = Transform3D.rotate('z', -1, a);
 			array = Transform3D.translate(0, -1, 0, b);
-			if (less) {
-				array = Transform3D.translate(-100, -100, -100, a);
-			}
 			break;
 		case 6: // 005.svg
 			b = Transform3D.rotate('z', -1, a);
@@ -95,16 +78,10 @@ public class BlockHelper {
 			break;
 		case 7: // --
 			array = Transform3D.translate(-1, 0, -1, a);
-			if (less) {
-				array = Transform3D.translate(-100, -100, -100, a);
-			}
 			break;
 		case 8: // --
 			b = Transform3D.rotate('z', -1, a);
 			array = Transform3D.translate(0, -1, -1, b);
-			if (less) {
-				array = Transform3D.translate(-100, -100, -100, a);
-			}
 			break;
 		// DOWN
 		case 9: // --
@@ -249,22 +226,6 @@ public class BlockHelper {
 			e.printStackTrace();
 		}
 		return BlockConverter.vectorToNBlock(array);
-	}
-
-	/**
-	 * Possibile.
-	 * 
-	 * @param block
-	 *            the block
-	 * @return true, if successful
-	 */
-	private static boolean isInsertionPossibile(int[] block) {
-		for (int i = 0; i < 4; i++) {
-			if (block[i] == -1) {
-				return false;
-			}
-		}
-		return true;
 	}
 
 }
