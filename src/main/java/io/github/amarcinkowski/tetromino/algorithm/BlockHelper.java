@@ -1,5 +1,6 @@
 package io.github.amarcinkowski.tetromino.algorithm;
 
+import java.util.Arrays;
 import java.util.Vector;
 
 import io.github.amarcinkowski.tetromino.math.BlockConverter;
@@ -125,12 +126,12 @@ public class BlockHelper {
 			b = Transform3D.rotate('x', 1, a);
 			array = Transform3D.rotate('z', 1, b);
 			break;
-		case 18:
+		case 18: //
 			b = Transform3D.rotate('x', 1, a);
 			c = Transform3D.rotate('z', 1, b);
 			array = Transform3D.translate(0, 1, 0, c);
 			break;
-		case 19:
+		case 19: //
 			b = Transform3D.rotate('x', 1, a);
 			c = Transform3D.rotate('z', 1, b);
 			array = Transform3D.translate(0, 2, 0, c);
@@ -141,7 +142,7 @@ public class BlockHelper {
 			array = Transform3D.translate(-1, 1, 0, c);
 			break;
 		// NORTH
-		case 21:
+		case 21: //
 			b = Transform3D.rotate('x', 1, a);
 			array = Transform3D.rotate('z', 2, b);
 			break;
@@ -150,49 +151,49 @@ public class BlockHelper {
 			c = Transform3D.rotate('z', 2, b);
 			array = Transform3D.translate(1, 0, 0, c);
 			break;
-		case 23:
+		case 23: //
 			b = Transform3D.rotate('x', 1, a);
 			c = Transform3D.rotate('z', 2, b);
 			array = Transform3D.translate(2, 0, 0, c);
 			break;
-		case 24:
+		case 24: //
 			b = Transform3D.rotate('x', 1, a);
 			c = Transform3D.rotate('z', 2, b);
 			array = Transform3D.translate(1, 1, 0, c);
 			break;
 		// WEST
-		case 25:
+		case 25: //
 			b = Transform3D.rotate('x', 1, a);
 			array = Transform3D.rotate('z', 3, b);
 			break;
-		case 26:
+		case 26: //
 			b = Transform3D.rotate('x', 1, a);
 			c = Transform3D.rotate('z', 3, b);
 			array = Transform3D.translate(0, -1, 0, c);
 			break;
-		case 27:
+		case 27: //
 			b = Transform3D.rotate('x', 1, a);
 			c = Transform3D.rotate('z', 3, b);
 			array = Transform3D.translate(0, -2, 0, c);
 			break;
-		case 28:
+		case 28: //
 			b = Transform3D.rotate('x', 1, a);
 			c = Transform3D.rotate('z', 3, b);
 			array = Transform3D.translate(1, -1, 0, c);
 			break;
 		// SOUTH
-		case 29:
+		case 29: //
 			array = Transform3D.rotate('x', 1, a);
 			break;
-		case 30:
+		case 30: //
 			b = Transform3D.rotate('x', 1, a);
 			array = Transform3D.translate(-1, 0, 0, b);
 			break;
-		case 31:
+		case 31: //
 			b = Transform3D.rotate('x', 1, a);
 			array = Transform3D.translate(-2, 0, 0, b);
 			break;
-		case 32:
+		case 32: //
 			b = Transform3D.rotate('x', 1, a);
 			array = Transform3D.translate(-1, -1, 0, b);
 			break;
@@ -215,7 +216,7 @@ public class BlockHelper {
 	 * @param type
 	 *            the type
 	 * @param shift
-	 *            the shift
+	 *            the shift 
 	 * @return the int[]
 	 */
 	private static int[] block(int type, int shift) {
@@ -226,6 +227,23 @@ public class BlockHelper {
 			e.printStackTrace();
 		}
 		return BlockConverter.vectorToNBlock(array);
+	}
+
+	public static void main(String[] args) {
+
+		for (int j = 1; j <= 32; j++) {
+			double[][] d = type2Vector(j);
+			try {
+				int[] i = BlockConverter.vectorToNBlock(d);
+				Block b = new BlockBuilder().n4(i).build();
+				int[][] xyz = { CoordinateConverter.n2XYZ(i[0]), CoordinateConverter.n2XYZ(i[1]),
+						CoordinateConverter.n2XYZ(i[2]), CoordinateConverter.n2XYZ(i[3]) };
+				System.out.println(j + " > " + Arrays.toString(i) + " > " + Arrays.deepToString(xyz) + " > " + b);
+			} catch (Exception e) {
+				System.out.println(j + " -");
+				continue;
+			}
+		}
 	}
 
 }

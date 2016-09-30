@@ -10,11 +10,10 @@ html
    - var svgattributes = {'xmlns' : 'http://www.w3.org/2000/svg', 'version' : '1.1'};
    svg&attributes(svgattributes)
     // tetromino
-    g#tetro(transform='scale(4)')
+    g#tetro(transform='scale(3)')
      text(id="c0" x=1 y=1  style="fill: #ffffff;" font-family="Verdana" font-size="0.1") amarcinkowski
       animate(xlink:href="#c0" attributeType="CSS" attributeName="opacity" from="0" to="1" dur="1s" repeatCount="indefinite" begin="0s" id="a0")
      for blockType in blockTypes
-      // REMOVE image(xlink:href='#{blockType.toString()}' x=2 y='1')
       text(x=22 y='#{11+2*blockType.ordinal()}'  style="fill: #ffffff;" font-family="Verdana" font-size="1.5") #{blockType.name()}     
      for block in blocks
       // block
