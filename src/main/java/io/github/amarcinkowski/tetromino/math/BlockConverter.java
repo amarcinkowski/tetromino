@@ -1,9 +1,5 @@
 package io.github.amarcinkowski.tetromino.math;
 
-import io.github.amarcinkowski.tetromino.algorithm.Block;
-import io.github.amarcinkowski.tetromino.algorithm.BlockBuilder;
-import io.github.amarcinkowski.tetromino.algorithm.BlockDirection;
-
 public class BlockConverter {
 
 	/**
@@ -23,12 +19,6 @@ public class BlockConverter {
 			result[i] = CoordinateConverter.xyz2N(xyz);
 		}
 		return result;
-	}
-
-	public static Block n4ToBlock(int[] n4) {
-		BlockDirection direction = BlockDirection.getDirection(n4);
-		int xyz[] = CoordinateConverter.n2XYZ(n4[0]);
-		return new BlockBuilder().xyz(xyz).type(direction).build();
 	}
 
 }
