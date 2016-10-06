@@ -15,8 +15,8 @@ public class BlockBuilder {
 		return this;
 	}
 
-	public BlockBuilder type(BlockDirection type) {
-		block.direction = type;
+	public BlockBuilder type(BlockDirection direction) {
+		block.direction = direction;
 		return this;
 	}
 
