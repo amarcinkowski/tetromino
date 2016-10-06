@@ -229,21 +229,4 @@ public class BlockHelper {
 		return BlockConverter.vectorToNBlock(array);
 	}
 
-	public static void main(String[] args) {
-
-		for (int j = 1; j <= 32; j++) {
-			double[][] d = type2Vector(j);
-			try {
-				int[] i = BlockConverter.vectorToNBlock(d);
-				Block b = new BlockBuilder().n4(i).build();
-				int[][] xyz = { CoordinateConverter.n2XYZ(i[0]), CoordinateConverter.n2XYZ(i[1]),
-						CoordinateConverter.n2XYZ(i[2]), CoordinateConverter.n2XYZ(i[3]) };
-				System.out.println(j + " > " + Arrays.toString(i) + " > " + Arrays.deepToString(xyz) + " > " + b);
-			} catch (Exception e) {
-				System.out.println(j + " -");
-				continue;
-			}
-		}
-	}
-
 }

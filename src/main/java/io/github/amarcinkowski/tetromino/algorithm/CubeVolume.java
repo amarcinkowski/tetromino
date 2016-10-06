@@ -1,6 +1,7 @@
 package io.github.amarcinkowski.tetromino.algorithm;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Vector;
 
@@ -139,7 +140,9 @@ public class CubeVolume {
 			}
 		}
 		for (Integer key : map.keySet()) {
-			Block block = new BlockBuilder().collection(map.get(key)).build();
+			Collection<Integer> collection = map.get(key);
+			int n4[] = collection.stream().mapToInt(Integer::intValue).toArray();
+			Block block = new BlockBuilder().array(n4).build();
 			blocks.add(block);
 		}
 		return blocks;

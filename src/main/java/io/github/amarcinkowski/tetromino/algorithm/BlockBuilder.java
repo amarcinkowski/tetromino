@@ -1,9 +1,6 @@
 package io.github.amarcinkowski.tetromino.algorithm;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
 
 import io.github.amarcinkowski.tetromino.math.CoordinateConverter;
 
@@ -27,20 +24,12 @@ public class BlockBuilder {
 		return block;
 	}
 
-
-	public BlockBuilder collection(Collection<Integer> collection) {
-		ArrayList<Integer> v = new ArrayList<>(collection);
-		Collections.sort(v);
-		int n4[] = v.stream().mapToInt(Integer::intValue).toArray();
-		block = n4(n4).build();
-		return this;
-	}
-	
-	public BlockBuilder n4(int[] array) {
-		Arrays.sort(array);
-		BlockDirection direction = BlockDirection.getDirection(array);
-		int xyz[] = CoordinateConverter.n2XYZ(array[0]);
-		block = new BlockBuilder().xyz(xyz).type(direction).build();
+	public BlockBuilder array(int[] n4) {
+		Arrays.sort(n4);
+		BlockDirection direction = BlockDirection.getDirection(n4);
+		int xyz[] = CoordinateConverter.n2XYZ(n4[0]);
+		xyz(xyz);
+		type(direction);
 		return this;
 	}
 
